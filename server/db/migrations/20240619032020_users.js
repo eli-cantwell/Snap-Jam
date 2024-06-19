@@ -4,7 +4,7 @@
  * @returns { Promise<void> }
  */
 export async function up(knex) {
-    knex.schema.createTable('users', (Table) => {
+    return knex.schema.createTable('users', (Table) => {
         Table.integer('id').primary(),
         Table.string('auth0_id'),
         Table.string('user_name'),
@@ -20,6 +20,6 @@ export async function up(knex) {
  * @returns { Promise<void> }
  */
 export async function down(knex) {
-    knex.schema.dropTable('users')
+    return knex.schema.dropTable('users')
   
 };

@@ -2,8 +2,8 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-export const up = function(knex) {
-    knex.schema.createTable('audio', (Table) => {
+export const up = async function(knex) {
+    return knex.schema.createTable('audio', (Table) => {
         Table.integer('id').primary()
         Table.string('filepath')
         Table.integer('project_id') // Ref: - projects.id
@@ -18,7 +18,7 @@ export const up = function(knex) {
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-export const down = function(knex) {
-    knex.schema.dropTable('audio')
+export const down = async function(knex) {
+    return knex.schema.dropTable('audio')
   
 };

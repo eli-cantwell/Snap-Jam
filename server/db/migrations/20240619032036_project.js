@@ -2,15 +2,15 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-export const up = function(knex) {
-    knex.schema.createTable('project', (Table) => {
+export const up = async function(knex) {
+    return knex.schema.createTable('project', (Table) => {
         Table.integer('id').primary()
         Table.string('project_name')
-        Table.integer('owner_id') //Ref: > users.id
-        Table.json('contributor_id') //  as {"array" : [1,2,3,4,5,6,67,7,3]}
+        Table.integer('owner_id')
+        Table.json('contributor_id') 
         Table.integer('tempo')
         Table.string('created_by')
-        Table.json('comments') //Ref: > comments.id  as {"comments": [1, 2, 4, 6, 123, 54323,]}
+        Table.json('comments') 
     })
   
 };
@@ -19,6 +19,6 @@ export const up = function(knex) {
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-export const down = function(knex) {
-    knex.schema.dropTable('project')
+export const down = async function(knex) {
+    return knex.schema.dropTable('project')
 };
