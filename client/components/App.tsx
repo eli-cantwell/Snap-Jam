@@ -7,7 +7,7 @@ function App() {
     <>
       <div className="app">
         <h1 className="text-3xl font-bold underline">
-          Fullstack Boilerplate - with Fruits!
+          SnapJam
         </h1>
         <ul>{data && data.map((fruit) => <li key={fruit}>{fruit}</li>)}</ul>
       </div>

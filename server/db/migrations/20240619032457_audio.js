@@ -2,7 +2,15 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.up = function(knex) {
+export const up = function(knex) {
+    knex.schema.createTable('audio', (Table) => {
+        Table.integer('id').primary()
+        Table.string('filepath')
+        Table.integer('project_id') // Ref: - projects.id
+        Table.string('length') // duration in seconds?
+        Table.timestamp('created')
+        Table.string('created_by') //Ref: - users.id
+    })
   
 };
 
@@ -10,6 +18,7 @@ exports.up = function(knex) {
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.down = function(knex) {
+export const down = function(knex) {
+    knex.schema.dropTable('audio')
   
 };
