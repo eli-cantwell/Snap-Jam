@@ -7,7 +7,10 @@ export const up = function(knex) {
         Table.integer('id').primary()
         Table.string('project_name')
         Table.integer('owner_id') //Ref: > users.id
-        Table.json('contributer_id') // {"array" : [1,2,3,4,5,6,67,7,3]}
+        Table.json('contributer_id') //  as {"array" : [1,2,3,4,5,6,67,7,3]}
+        Table.integer('tempo')
+        Table.string('created_by')
+        Table.json('comments') //Ref: > comments.id  as {"comments": [1, 2, 4, 6, 123, 54323,]}
     })
   
 };
