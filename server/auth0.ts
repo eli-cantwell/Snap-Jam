@@ -5,7 +5,7 @@ import { JwtPayload } from 'jsonwebtoken'
 import jwks from 'jwks-rsa'
 
 // TODO: set the domain and audience (API Identifier)
-const domain = 'https://snapJam/api'
+const domain = 'piwakawaka-2024-finlay.au.auth0.com'
 const audience = 'https://snapJam/api'
 
 const checkJwt = jwt({
