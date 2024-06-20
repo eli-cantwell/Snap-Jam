@@ -12,7 +12,7 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
         return
       }
     try {
-        const data = db.getAllAudio()
+        const data = await db.getAllAudio()
         res.json (data)
     }
     catch (e) {
@@ -22,7 +22,7 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
 
 router.get('/getdevaudio', checkJwt, async (req, res) => {
     try {
-        const data = db.getAllAudio()
+        const data = await db.getAllAudio()
         res.json (data)
     }
     catch (e) {
@@ -37,7 +37,7 @@ router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
         return
       }
     try {
-        const data = db.getAudioById(Number(id))
+        const data = await db.getAudioById(Number(id))
         res.json (data)
     }
     catch (e) {
@@ -48,7 +48,7 @@ router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
 router.get('/getdevaudio/:id', checkJwt, async (req, res) => {
     const { id } = req.params
     try {
-        const data = db.getAudioById(Number(id))
+        const data = await db.getAudioById(Number(id))
         res.json (data)
     }
     catch (e) {

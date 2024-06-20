@@ -14,7 +14,7 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
         return
       }
     try {
-        const data = db.getAllProjects()
+        const data = await db.getAllProjects()
         res.json (data)
     }
     catch (e) {
@@ -24,7 +24,7 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
 
 router.get('/getdevprojects', checkJwt, async (req, res) => {
     try {
-        const data = db.getAllProjects()
+        const data = await db.getAllProjects()
         res.json (data)
     }
     catch (e) {
@@ -39,7 +39,7 @@ router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
         return
       }
     try {
-        const data = db.getProjectsById(Number(id))
+        const data = await db.getProjectsById(Number(id))
         res.json (data)
     }
     catch (e) {
@@ -50,7 +50,7 @@ router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
 router.get('/getdevprojects/:id', checkJwt, async (req, res) => {
     const { id } = req.params
     try {
-        const data = db.getProjectsById(Number(id))
+        const data = await db.getProjectsById(Number(id))
         res.json (data)
     }
     catch (e) {

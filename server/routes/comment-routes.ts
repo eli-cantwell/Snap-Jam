@@ -12,7 +12,7 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
         return
       }
     try {
-        const data = db.getAllComments()
+        const data = await db.getAllComments()
         res.json (data)
     }
     catch (e) {
@@ -22,7 +22,7 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
 
 router.get('/getdevcomments', checkJwt, async (req, res) => {
     try {
-        const data = db.getAllComments()
+        const data = await db.getAllComments()
         res.json (data)
     }
     catch (e) {
@@ -31,7 +31,7 @@ router.get('/getdevcomments', checkJwt, async (req, res) => {
 })
 // ID
 router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
-    const { id } = req.params
+    const { id } = await req.params
     if (!req.auth?.sub) {
         res.sendStatus(StatusCodes.UNAUTHORIZED)
         return
@@ -48,7 +48,7 @@ router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
 router.get('/getdevcomments/:id', checkJwt, async (req, res) => {
     const { id } = req.params
     try {
-        const data = db.getCommentById((Number(id)))
+        const data = await db.getCommentById((Number(id)))
         res.json (data)
     }
     catch (e) {

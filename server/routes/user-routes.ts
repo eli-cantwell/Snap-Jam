@@ -14,7 +14,7 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
         return
       }
     try {
-        const data = db.getAllUsers()
+        const data = await db.getAllUsers()
         res.json (data)
     }
     catch (e) {
@@ -25,7 +25,7 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
 
 router.get('/getdevusers', checkJwt, async (req, res) => {
     try {
-        const data = db.getAllUsers()
+        const data = await db.getAllUsers()
         res.json (data)
     }
     catch (e) {
@@ -42,7 +42,7 @@ router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
         return
       }
     try {
-        const data = db.getUserById(Number(id))
+        const data = await db.getUserById(Number(id))
         res.json (data)
     }
     catch (e) {
@@ -55,7 +55,7 @@ router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
 router.get('/getdevusers/:id', checkJwt, async (req, res) => {
     const { id } = req.params
     try {
-        const data = db.getUserById(Number(id))
+        const data = await db.getUserById(Number(id))
         res.json (data)
     }
     catch (e) {
