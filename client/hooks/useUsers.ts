@@ -36,7 +36,7 @@ export default function useUsers() {
                 if (!token) {
                     throw new Error('Authentication error')
                 }
-                const result = await request.get(`${rootURL}/${id}`)
+                const result = await request.get(`${rootURL}/${id}`).auth(token, {type: 'bearer'})
 
                 return result.body as User
             },
