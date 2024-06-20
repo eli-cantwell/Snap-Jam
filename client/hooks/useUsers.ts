@@ -2,11 +2,12 @@ import { useQuery } from "@tanstack/react-query"
 import { useAuth0 } from "@auth0/auth0-react"
 import request from "superagent"
 import { User } from "../../models/users"
+import { Project } from "../../models/project"
 
-const rootURL = '/api/v1/users'
+const rootURL = '/api/v1/'
 
 
-export default function useUsers() {
+export function useUsers() {
     function useGetAllUsers() {
         const {isAuthenticated, getAccessTokenSilently} = useAuth0()
 
@@ -17,7 +18,7 @@ export default function useUsers() {
                 if (!token) {
                     throw new Error('Authentication error')
                 }
-                const result = await request.get(`${rootURL}`).auth(token, {type: 'bearer'})
+                const result = await request.get(`${rootURL}/users`).auth(token, {type: 'bearer'})
 
                 return result.body as User[]
             },
@@ -35,7 +36,7 @@ export default function useUsers() {
                 if (!token) {
                     throw new Error('Authentication error')
                 }
-                const result = await request.get(`${rootURL}/${id}`).auth(token, {type: 'bearer'})
+                const result = await request.get(`${rootURL}/users/${id}`).auth(token, {type: 'bearer'})
 
                 return result.body as User
             },
@@ -49,6 +50,48 @@ export default function useUsers() {
     }
 }
 
+export function useProject() {
+    function useGetAllProjects() {
+        const {isAuthenticated, getAccessTokenSilently} = useAuth0()
+
+        return useQuery({
+            queryKey: ['projects'],
+            queryFn: async () => {
+                const token = await getAccessTokenSilently()
+                if (!token) {
+                    throw new Error('Authentication Error')
+                }
+                const result = await request.get(`${rootURL}/projects`).auth(token, {type: 'bearer'})
+
+                return result.body as Project[]
+            },
+            enabled: isAuthenticated,
+        })
+    }
+
+    function useGetProjectById(id: number) {
+        const {isAuthenticated, getAccessTokenSilently} = useAuth0()
+
+        return useQuery({
+            queryKey: ['projects'],
+            queryFn: async () => {
+                const token = await getAccessTokenSilently()
+                if (!token) {
+                    throw new Error("Authentication error")
+                }
+                const result = await request.get(`${rootURL}/projects/${id}`).auth(token, {type: 'bearer'})
+
+                return result.body as Project
+            },
+            enabled: isAuthenticated,
+        })
+    }
+
+    return {
+        getAllProjects: useGetAllProjects,
+        getProjectById: useGetProjectById,
+    }
+}
 
 
 
