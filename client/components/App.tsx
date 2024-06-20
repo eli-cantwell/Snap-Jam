@@ -1,16 +1,17 @@
-import { useFruits } from '../hooks/useFruits.ts'
+import { Outlet } from 'react-router-dom'
+import Login from './Login'
+import Nav from './Nav'
 
 function App() {
-  const { data } = useFruits()
-
   return (
     <>
-      <div className="app">
-        <h1 className="text-3xl font-bold underline">
-          SnapJam
-        </h1>
-        <ul>{data && data.map((fruit) => <li key={fruit}>{fruit}</li>)}</ul>
-      </div>
+    <div>
+        <header>
+          <Nav />
+        </header>
+        <Outlet />
+        <footer></footer>
+    </div>
     </>
   )
 }
