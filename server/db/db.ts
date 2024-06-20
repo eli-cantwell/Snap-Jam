@@ -1,28 +1,28 @@
-import { User, UserData } from '../../models/users.ts'
-import { Project, ProjectData } from '../../models/project.ts'
+import { User} from '../../models/users.ts'
+import { Project} from '../../models/project.ts'
 import db from './connection.ts'
 
 // Users
 export async function getAllUsers() {
   const user = await db('users').select()
-  return user as UserData[]
+  return user as User[]
 }
 
 export async function getUserById(id: number) {
   const user = await db('users').where({id}).first()
-  return user as UserData[]
+  return user as User[]
 }
 
 // project
 
 export async function getAllProjects() {
   const project = await db('project').select()
-  return project as ProjectData[]
+  return project as Project[]
 }
 
 export async function getProjectsById(id: number) {
   const project = await db('project').where({id}).first()
-  return project as ProjectData[]
+  return project as Project[]
 }
 
 // comments
@@ -45,4 +45,8 @@ export async function getAllAudio() {
 
 export async function getAudioById(id: number) {
     return await db('audio').where({id}).first()
+}
+
+export async function getAudioByProject(projId: number) {
+  return await db('audio').where({project_id: projId})
 }

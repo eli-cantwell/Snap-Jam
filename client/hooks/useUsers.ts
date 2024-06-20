@@ -3,8 +3,9 @@ import { useAuth0 } from "@auth0/auth0-react"
 import request from "superagent"
 import { User } from "../../models/users"
 import { Project } from "../../models/project"
+import { Audio } from "../../models/Audio"
 
-const rootURL = '/api/v1/'
+const rootURL = '/api/v1'
 
 //TODO create types for Comments and Audio
 export function useUser() {
@@ -107,7 +108,7 @@ export function useAudio() {
                 }
                 const result = await request.get(`${rootURL}/audio/`).auth(token, {type: 'bearer'})
 
-                return result.body // as Audio[]
+                return result.body as Audio[]
             },
             enabled: isAuthenticated
         })
@@ -126,7 +127,7 @@ export function useAudio() {
                 }
                 const result = await request.get(`${rootURL}/audio/${id}`).auth(token, {type: 'bearer'})
 
-                return result.body //as Audio
+                return result.body as Audio
             },
             enabled: isAuthenticated
         })
@@ -145,9 +146,9 @@ export function useAudio() {
                 if(!token) {
                     throw new Error('Authentication Error')
                 }
-                const result = await request.get(`${rootURL}/projectAudio/${id}`).auth(token, {type: 'bearer'})
+                const result = await request.get(`${rootURL}/audio/byProject/${id}`).auth(token, {type: 'bearer'})
 
-                return result.body //as Audio
+                return result.body as Audio[]
             },
             enabled: isAuthenticated
         })
