@@ -1,8 +1,9 @@
-import { useQuery } from '@tanstack/react-query'
-import { useAuth0 } from '@auth0/auth0-react'
-import request from 'superagent'
-import { User } from '../../models/users'
-import { Project } from '../../models/project'
+import { useQuery } from "@tanstack/react-query"
+import { useAuth0 } from "@auth0/auth0-react"
+import request from "superagent"
+import { User } from "../../models/users"
+import { Project } from "../../models/project"
+import { Audio } from "../../models/Audio"
 
 const rootURL = '/api/v1'
 
@@ -117,11 +118,11 @@ export function useAudio() {
           .get(`${rootURL}/audio/`)
           .auth(token, { type: 'bearer' })
 
-        return result.body // as Audio[]
-      },
-      enabled: isAuthenticated,
-    })
-  }
+                return result.body as Audio[]
+            },
+            enabled: isAuthenticated
+        })
+    }
 
   function useGetAudioById(id: number) {
     const { isAuthenticated, getAccessTokenSilently } = useAuth0()
@@ -138,16 +139,39 @@ export function useAudio() {
           .get(`${rootURL}/audio/${id}`)
           .auth(token, { type: 'bearer' })
 
-        return result.body //as Audio
-      },
-      enabled: isAuthenticated,
-    })
-  }
+                return result.body as Audio
+            },
+            enabled: isAuthenticated
+        })
+    }
 
-  return {
-    getAudio: useGetAllAudio,
-    getAudioById: useGetAudioById,
-  }
+
+
+    function useGetAudioByProjectId(id: number) {
+        const {isAuthenticated, getAccessTokenSilently} = useAuth0()
+
+        return useQuery({
+            queryKey: ['projectAudio'],
+            queryFn: async () => {
+                const token = await getAccessTokenSilently()
+
+                if(!token) {
+                    throw new Error('Authentication Error')
+                }
+                const result = await request.get(`${rootURL}/audio/byProject/${id}`).auth(token, {type: 'bearer'})
+
+                return result.body as Audio[]
+            },
+            enabled: isAuthenticated
+        })
+    }
+
+    return {
+        getAudio: useGetAllAudio,
+        getAudioById: useGetAudioById,
+        getAudioByProject: useGetAudioByProjectId
+    }
+    
 }
 
 export function useComment() {
