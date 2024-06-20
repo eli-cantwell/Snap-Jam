@@ -5,6 +5,7 @@ import { StatusCodes } from 'http-status-codes'
 import * as db from '../db/db.ts'
 
 const router= Router()
+export default router
 // ALL
 router.get('/', checkJwt, async (req: JwtRequest, res) => {
     if (!req.auth?.sub) {
