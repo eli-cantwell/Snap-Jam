@@ -21,7 +21,7 @@ export async function getAllProjects() {
 }
 
 export async function getProjectsById(id: number) {
-  const project = await db('projects').where({id}).first()
+  const project = await db('project').where({id}).first()
   return project as ProjectData[]
 }
 
