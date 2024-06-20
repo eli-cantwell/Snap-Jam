@@ -11,9 +11,6 @@ const queryClient = new QueryClient()
 
 document.addEventListener('DOMContentLoaded', () => {
   createRoot(document.getElementById('app') as HTMLElement).render(
-    /**
-     * TODO: replace domain, clientId, and audience
-     */
     <Auth0Provider
       domain="piwakawaka-2024-finlay.au.auth0.com"
       clientId="FXbIRAWKZM1u4u6XV3WDJw9MGtYNeaUB"
