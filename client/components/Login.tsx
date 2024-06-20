@@ -1,11 +1,29 @@
+import { useAuth0 } from '@auth0/auth0-react'
+// import Croissants from './Croissants'
+
 export default function Login() {
+  const { loginWithRedirect } = useAuth0()
+
+  const handleSignUp = () => {
+    loginWithRedirect()
+  }
+
+  const handleLogIn = () => {
+    loginWithRedirect()
+  }
+
   return (
-    <div className="login-screen bg-green-500  m-auto">
-      <h2>Create an account</h2>
-      <p>Enter your email to sign up / log in</p>
-    
-    </div>
+    <>
+      <main className="login-main">
+        <div className="login-screen m-auto">
+          <button className="" onClick={handleSignUp}>
+            Sign up
+          </button>
+          <button onClick={handleLogIn}>Sign in</button>
+        </div>
+      </main>
+    </>
   )
 }
 
-//
+//n
