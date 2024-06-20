@@ -22,7 +22,7 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
     }
 })
 
-router.get('/getdevprojects', checkJwt, async (req, res) => {
+router.get('/getdevprojects', async (req, res) => {
     try {
         const data = await db.getAllProjects()
         res.json (data)
@@ -47,7 +47,7 @@ router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
     }
 })
 
-router.get('/getdevprojects/:id', checkJwt, async (req, res) => {
+router.get('/getdevprojects/:id', async (req, res) => {
     const { id } = req.params
     try {
         const data = await db.getProjectsById(Number(id))

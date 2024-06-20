@@ -21,7 +21,7 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
     }
 })
 
-router.get('/getdevcomments', checkJwt, async (req, res) => {
+router.get('/getdevcomments', async (req, res) => {
     try {
         const data = await db.getAllComments()
         res.json (data)
@@ -46,7 +46,7 @@ router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
     }
 })
 
-router.get('/getdevcomments/:id', checkJwt, async (req, res) => {
+router.get('/getdevcomments/:id',  async (req, res) => {
     const { id } = req.params
     try {
         const data = await db.getCommentById((Number(id)))

@@ -23,7 +23,7 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
 })
 // <--->
 
-router.get('/getdevusers', checkJwt, async (req, res) => {
+router.get('/getdevusers', async (req, res) => {
     try {
         const data = await db.getAllUsers()
         res.json (data)
@@ -52,7 +52,7 @@ router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
 
 // <--DEV-->
 
-router.get('/getdevusers/:id', checkJwt, async (req, res) => {
+router.get('/getdevusers/:id', async (req, res) => {
     const { id } = req.params
     try {
         const data = await db.getUserById(Number(id))
