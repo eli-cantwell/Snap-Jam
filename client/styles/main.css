@@ -98,3 +98,25 @@ a:hover {
   left: 1320px;
   top: 12px;
 }
+
+.login-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  height: 10em;
+  width: 25em;
+  margin-top: 15%;
+
+  /* width: 50%;
+height: 50%; */
+}
+
+.footer-bar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background: #5ac0d9;
+  border-bottom: 1px solid #e0e0e0;
+}
