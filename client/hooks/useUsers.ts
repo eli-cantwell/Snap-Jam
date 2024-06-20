@@ -132,9 +132,31 @@ export function useAudio() {
         })
     }
 
+
+
+    function useGetAudioByProjectId(id: number) {
+        const {isAuthenticated, getAccessTokenSilently} = useAuth0()
+
+        return useQuery({
+            queryKey: ['projectAudio'],
+            queryFn: async () => {
+                const token = await getAccessTokenSilently()
+
+                if(!token) {
+                    throw new Error('Authentication Error')
+                }
+                const result = await request.get(`${rootURL}/projectAudio/${id}`).auth(token, {type: 'bearer'})
+
+                return result.body //as Audio
+            },
+            enabled: isAuthenticated
+        })
+    }
+
     return {
         getAudio: useGetAllAudio,
-        getAudioById: useGetAudioById
+        getAudioById: useGetAudioById,
+        getAudioByProject: useGetAudioByProjectId
     }
     
 }

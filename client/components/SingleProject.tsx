@@ -6,9 +6,11 @@ interface Props {
 
 export default function SingleProject(props: Props) {
 
-  const projectHook = useProject()
+  
   const audioHook = useAudio()
 
+  
+  const projectHook = useProject()
   const {data: projects, isPending, isError, error} = projectHook.getProjectById(props.id)
   
   // const {data: audio } = audioHook.getAudioById() //TODO getAudioByProjectId
