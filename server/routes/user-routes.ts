@@ -62,7 +62,6 @@ router.get('/getdevusers/:id', async (req, res) => {
         res.json({"message" : `${e}`})
     }
 })
-
 // <--->
 
 // UPDATE
