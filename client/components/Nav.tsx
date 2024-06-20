@@ -10,7 +10,7 @@ export default function Nav() {
   // }
 
   function handleClick() {
-
+    console.log('Hello Eli ;)')
   }
   
   return (

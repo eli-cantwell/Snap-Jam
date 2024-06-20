@@ -9,7 +9,8 @@ function App() {
         <header>
           <Nav />
         </header>
-        <Outlet />
+        <div className="outlet"><Outlet /></div>
+        
         <footer></footer>
     </div>
     </>
