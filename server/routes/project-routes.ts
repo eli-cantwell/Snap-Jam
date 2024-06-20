@@ -8,11 +8,11 @@ const router = Router()
 export default router
 
 // ALL
-router.get('/', checkJwt, async (req: JwtRequest, res) => {
-    if (!req.auth?.sub) {
-        res.sendStatus(StatusCodes.UNAUTHORIZED)
-        return
-      }
+router.get('/', async (req, res) => {
+    // if (!req.auth?.sub) {
+    //     res.sendStatus(StatusCodes.UNAUTHORIZED)
+    //     return
+    //   }
     try {
         const data = await db.getAllProjects()
         res.json (data)
@@ -21,6 +21,9 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
         res.json({"message" : `${e}`})
     }
 })
+
+
+
 
 router.get('/getdevprojects', async (req, res) => {
     try {
@@ -32,12 +35,12 @@ router.get('/getdevprojects', async (req, res) => {
     }
 })
 // ID
-router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
+router.get('/:id', async (req, res) => {
     const { id } = req.params
-    if (!req.auth?.sub) {
-        res.sendStatus(StatusCodes.UNAUTHORIZED)
-        return
-      }
+    // if (!req.auth?.sub) {
+    //     res.sendStatus(StatusCodes.UNAUTHORIZED)
+    //     return
+    //   }
     try {
         const data = await db.getProjectsById(Number(id))
         res.json (data)

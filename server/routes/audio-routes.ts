@@ -46,6 +46,21 @@ router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
     }
 })
 
+router.get('/byProject/:id', checkJwt, async (req: JwtRequest, res) => {
+    const { id } = req.params
+    if (!req.auth?.sub) {
+        res.sendStatus(StatusCodes.UNAUTHORIZED)
+        return
+      }
+    try {
+        const data = await db.getAudioByProject(Number(id))
+        res.json (data)
+    }
+    catch (e) {
+        res.json({"message" : `${e}`})
+    }
+})
+
 router.get('/getdevaudio/:id', async (req, res) => {
     const { id } = req.params
     try {
