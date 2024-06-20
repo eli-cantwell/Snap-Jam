@@ -21,7 +21,7 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
     }
 })
 
-router.get('/getdevaudio',  async (req, res) => {
+router.get('/getdevaudio', async (req, res) => {
     try {
         const data = await db.getAllAudio()
         res.json (data)
