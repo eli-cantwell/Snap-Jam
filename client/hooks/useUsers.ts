@@ -6,7 +6,7 @@ import { Project } from "../../models/project"
 
 const rootURL = '/api/v1/'
 
-
+//TODO create types for Comments and Audio
 export function useUser() {
     function useGetAllUsers() {
         const {isAuthenticated, getAccessTokenSilently} = useAuth0()
@@ -184,38 +184,6 @@ export function useComment() {
 }
 
 
-// import * as hooks from .
-
-// const users = hooks.useUsers()
-
-// users.getAllUsers
-
-// import { }
-
-// export default function useResponses() {
-//   function useAddResponse() {
-//     const { getAccessTokenSilently } = useAuth0()
-//     const queryClient = useQueryClient()
-
-//     return useMutation({
-//       mutationFn: async (response: ResponseData) => {
-//         const token = await getAccessTokenSilently()
-//         const authorizedResponse = {
-//           ...response,
-//           user_auth0_sub: token,
-//         } as AuthorizedResponseData
-//         const res = await request
-//           .post(`${rootURL}`)
-//           .send(authorizedResponse)
-//           .auth(token, { type: 'bearer' })
-
-//         return res.body
-//       },
-//       onSuccess: () => {
-//         queryClient.invalidateQueries({ queryKey: ['responses'] })
-//       },
-//     })
-//   }
 
 //   function useDeleteResponse() {
 //     const { getAccessTokenSilently } = useAuth0()
