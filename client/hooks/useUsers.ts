@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
 import { useAuth0 } from "@auth0/auth0-react"
-import { QueryClient } from "@tanstack/react-query"
 import request from "superagent"
 import { User } from "../../models/users"
 
