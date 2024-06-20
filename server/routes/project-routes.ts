@@ -22,6 +22,9 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
     }
 })
 
+
+
+
 router.get('/getdevprojects', async (req, res) => {
     try {
         const data = await db.getAllProjects()
