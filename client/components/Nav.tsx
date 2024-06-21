@@ -1,5 +1,8 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
+
+
 
 export default function Nav() {
   // const [selected, setSelected] = useState(false)
@@ -9,14 +12,16 @@ export default function Nav() {
   //   setClass('selected')
   // }
 
-  function handleClick() {
-    console.log('Hello Eli ;)')
-  }
+  const { user } = useAuth0()
+
+  // function handleClick() {
+  //   console.log('Hello Eli ;)')
+  // }
   
   return (
     <div className="nav-bar">
       <div className="nav-title-div">
-        <h1>Snap Jam</h1>
+        <h1 className='text-slate-700 font-bold xl'>Snap Jam</h1>
       </div>
       <div className="tab-div">
         <NavLink to="/" className={({isActive, isPending}) => isPending ? "pending" : isActive ? "active" : ""}>
@@ -27,7 +32,7 @@ export default function Nav() {
         </NavLink>
       </div>
       <div className="profile-info-div">
-        <h1>Profile Info</h1>
+        <h1 className="text-slate-700 font-medium">User: {user?.nickname}</h1>
       </div>
     </div>
   )
