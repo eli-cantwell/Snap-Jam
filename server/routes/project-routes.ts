@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import checkJwt, { JwtRequest } from '../auth0.ts'
 // import { StatusCodes } from 'http-status-codes'
-import { ProjectData } from '../../models/project.ts'
+import { ProjectData, Project } from '../../models/project.ts'
 import * as db from '../db/db.ts'
 import { StatusCodes } from 'http-status-codes'
 
@@ -22,9 +22,6 @@ router.get('/', async (req, res) => {
         res.json({"message" : `${e}`})
     }
 })
-
-
-
 
 router.get('/getdevprojects', async (req, res) => {
     try {
@@ -78,3 +75,17 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
   }
 })
 // DELETE
+
+router.delete('/:id', checkJwt, async (req: JwtRequest, res, next) => {
+  if (!req.auth?.sub) {
+      res.sendStatus(StatusCodes.UNAUTHORIZED)
+      return
+  }
+   try {
+    const id = Number(req.params.id)
+    await db.deleteProject(id)
+    res.sendStatus(StatusCodes.CREATED)
+} catch (err) {
+  next(err)
+}
+})
