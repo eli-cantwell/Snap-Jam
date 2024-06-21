@@ -83,7 +83,7 @@ router.delete('/:id', checkJwt, async (req: JwtRequest, res, next) => {
   }
    try {
     const id = Number(req.params.id)
-    await db.deleteProject(id)
+    await db.deleteProjectById(id)
     res.sendStatus(StatusCodes.CREATED)
 } catch (err) {
   next(err)
