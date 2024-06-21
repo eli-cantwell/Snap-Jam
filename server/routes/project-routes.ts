@@ -23,6 +23,9 @@ router.get('/', async (req, res) => {
     }
 })
 
+
+
+
 router.get('/getdevprojects', async (req, res) => {
     try {
         const data = await db.getAllProjects()

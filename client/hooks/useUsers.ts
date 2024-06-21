@@ -91,15 +91,18 @@ const rootURL = '/api/v1'
     function useGetAllAudio() {
         const {isAuthenticated, getAccessTokenSilently} = useAuth0()
 
-        return useQuery({
-            queryKey: ['audios'],
-            queryFn: async () => {
-                const token = await getAccessTokenSilently()
 
-                if (!token) {
-                    throw new Error("Authentication Error")
-                }
-                const result = await request.get(`${rootURL}/audio/`).auth(token, {type: 'bearer'})
+    return useQuery({
+      queryKey: ['audios'],
+      queryFn: async () => {
+        const token = await getAccessTokenSilently()
+
+        if (!token) {
+          throw new Error('Authentication Error')
+        }
+        const result = await request
+          .get(`${rootURL}/audio/`)
+          .auth(token, { type: 'bearer' })
 
                 return result.body as Audio[]
             },
@@ -107,18 +110,20 @@ const rootURL = '/api/v1'
         })
     }
 
-    function useGetAudioById(id: number) {
-        const {isAuthenticated, getAccessTokenSilently} = useAuth0()
+  function useGetAudioById(id: number) {
+    const { isAuthenticated, getAccessTokenSilently } = useAuth0()
 
-        return useQuery({
-            queryKey: ['audio'],
-            queryFn: async () => {
-                const token = await getAccessTokenSilently()
+    return useQuery({
+      queryKey: ['audio'],
+      queryFn: async () => {
+        const token = await getAccessTokenSilently()
 
-                if (!token) {
-                    throw new Error('Authentication Error')
-                }
-                const result = await request.get(`${rootURL}/audio/${id}`).auth(token, {type: 'bearer'})
+        if (!token) {
+          throw new Error('Authentication Error')
+        }
+        const result = await request
+          .get(`${rootURL}/audio/${id}`)
+          .auth(token, { type: 'bearer' })
 
                 return result.body as Audio
             },
@@ -152,7 +157,7 @@ const rootURL = '/api/v1'
         useGetAudioById,
         useGetAudioByProjectId
     }
-
+    
     function useGetAllComments() {
         const {isAuthenticated, getAccessTokenSilently} = useAuth0()
 
@@ -194,8 +199,6 @@ const rootURL = '/api/v1'
         useGetAllComments,
         useGetCommentById
     }
-
-
 
 //   function useDeleteResponse() {
 //     const { getAccessTokenSilently } = useAuth0()
