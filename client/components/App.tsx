@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import Login from './Login'
 import Nav from './Nav'
-import Footer from './Footer' //Crying face
+//import Footer from './Footer' //Crying face
 import { IfAuthenticated, IfNotAuthenticated } from './Authenticated'
 import SingleProject from './SingleProject'
 
@@ -11,7 +11,7 @@ function App() {
       <IfAuthenticated>
         <Nav />
         <Outlet />
-        <SingleProject id={1}/>
+        <SingleProject id={2}/>
       </IfAuthenticated>
       <IfNotAuthenticated>
         <Login />

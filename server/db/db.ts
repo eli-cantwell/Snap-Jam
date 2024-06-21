@@ -1,5 +1,5 @@
 import { User} from '../../models/users.ts'
-import { Project} from '../../models/project.ts'
+import { Project, ProjectData} from '../../models/project.ts'
 import db from './connection.ts'
 
 // Users
@@ -25,6 +25,9 @@ export async function getProjectsById(id: number) {
   return project as Project[]
 }
 
+export async function createProject(project: ProjectData) {
+  return db('project').insert(project)
+}
 // comments
 
 export async function getAllComments() {
@@ -36,7 +39,6 @@ export async function getCommentById(id: number) {
     const comment = await db('comments').where({id}).first()
     return comment
 }
-
 
 // audio
 export async function getAllAudio() {

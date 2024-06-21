@@ -8,7 +8,6 @@ import { Audio } from "../../models/Audio"
 const rootURL = '/api/v1'
 
 //TODO create types for Comments and Audio
-export function useUser() {
     function useGetAllUsers() {
         const {isAuthenticated, getAccessTokenSilently} = useAuth0()
 
@@ -45,14 +44,14 @@ export function useUser() {
         })
     }
 
-    return {
-        getUsers: useGetAllUsers,
-        userById: useGetUserById
+    export const user = {
+        useGetAllUsers,
+        useGetUserById
     }
-}
 
-export function useProject() {
-    function useGetAllProjects() {
+
+// export function useProject() {
+    export function useGetAllProjects() {
         const {isAuthenticated, getAccessTokenSilently} = useAuth0()
 
         return useQuery({
@@ -70,7 +69,7 @@ export function useProject() {
         })
     }
 
-    function useGetProjectById(id: number) {
+    export function useGetProjectById(id: number) {
         const {isAuthenticated, getAccessTokenSilently} = useAuth0()
 
         return useQuery({
@@ -88,13 +87,7 @@ export function useProject() {
         })
     }
 
-    return {
-        getProjects: useGetAllProjects,
-        getProjectById: useGetProjectById,
-    }
-}
 
-export function useAudio() {
     function useGetAllAudio() {
         const {isAuthenticated, getAccessTokenSilently} = useAuth0()
 
@@ -135,11 +128,11 @@ export function useAudio() {
 
 
 
-    function useGetAudioByProjectId(id: number) {
+    function useGetAudioByProjectId(id: number | undefined) {
         const {isAuthenticated, getAccessTokenSilently} = useAuth0()
 
         return useQuery({
-            queryKey: ['projectAudio'],
+            queryKey: ['projectAudio', id],
             queryFn: async () => {
                 const token = await getAccessTokenSilently()
 
@@ -150,19 +143,16 @@ export function useAudio() {
 
                 return result.body as Audio[]
             },
-            enabled: isAuthenticated
+            enabled: isAuthenticated && id != undefined
         })
     }
 
-    return {
-        getAudio: useGetAllAudio,
-        getAudioById: useGetAudioById,
-        getAudioByProject: useGetAudioByProjectId
+    export const audio = {
+        useGetAllAudio,
+        useGetAudioById,
+        useGetAudioByProjectId
     }
-    
-}
 
-export function useComment() {
     function useGetAllComments() {
         const {isAuthenticated, getAccessTokenSilently} = useAuth0()
 
@@ -200,11 +190,10 @@ export function useComment() {
             enabled: isAuthenticated
         })
     }
-    return {
-        getComments: useGetAllComments,
-        getCommentById: useGetCommentById
+    export const comments = {
+        useGetAllComments,
+        useGetCommentById
     }
-}
 
 
 
