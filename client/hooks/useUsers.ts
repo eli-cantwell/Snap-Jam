@@ -4,6 +4,7 @@ import request from "superagent"
 import { User } from "../../models/users"
 import { Project } from "../../models/project"
 import { Audio } from "../../models/Audio"
+import { useMutation } from "@tanstack/react-query"
 
 const rootURL = '/api/v1'
 
@@ -85,6 +86,23 @@ const rootURL = '/api/v1'
             },
             enabled: isAuthenticated,
         })
+    }
+
+    export function useDeleteProjectById(id: number) {
+      const { isAuthenticated, getAccessTokenSilently } = useAuth0()
+
+      return useMutation({
+        mutationKey: ['deleteProject'],
+        mutationFn: async () => {
+          if (!isAuthenticated) {
+            throw new Error("Authentication error")
+          }
+          const token = await getAccessTokenSilently()
+          const result = await request.delete(`${rootURL}/projects/${id}`).auth(token, {type: 'bearer'})
+          
+          return result.body as Project
+        },
+      })
     }
 
 

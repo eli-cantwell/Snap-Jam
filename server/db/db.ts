@@ -29,7 +29,7 @@ export async function createProject(project: ProjectData) {
   return db('project').insert(project)
 }
 
-export async function deleteProject(id: number): Promise<Project> {
+export async function deleteProjectById(id: number): Promise<Project> {
   return db('project').where({id}).del()
 }
 // comments
