@@ -1,31 +1,35 @@
-import { ReactNode } from "react"
+
 import { Audio } from "../../models/Audio"
-import { audio, useGetProjectById } from "../hooks/useUsers"
+import { audio } from "../hooks/useUsers"
+import { Project } from "../../models/project"
 
 interface Props {
-  id: number
+  project: Project
+  key: number
+
 }
-//TODO change this component so an object is passed in rather than just the id. 
-export default function SingleProject(props: Props):ReactNode {
 
-  const {data: projects, isPending, isError, error} =  useGetProjectById(props.id)
-  const {data: audioData, isPending: isPendingAudio, isError: isAudioError, error: audioError } = audio.useGetAudioByProjectId(Number(projects?.id))
+export default function SingleProject(props: Props) {
+  console.log('HEllO!')
 
-  if (isPending) return (<p>Loading...</p>)
-  if (isError) {
-    console.log({message: error})
-    return (<p>There was an error: {`${error}`}</p>)
-  }
+  // const {data: projects, isPending, isError, error} =  useGetProjectById(props.id)
+  const {data: audioData, isPending: isPendingAudio, isError: isAudioError, error: audioError } = audio.useGetAudioByProjectId(Number(props.project.id))
+
+  // if (isPending) return (<p>Loading...</p>)
+  // if (isError) {
+  //   console.log({message: error})
+  //   return (<p>There was an error: {`${error}`}</p>)
+  // }
 
   if (isPendingAudio) { console.log('loading audio'); return <p>Audio Loading...</p>}
   if (isAudioError) {return <p>{`${audioError}`}</p>}
 
   return (
     <>
-    <div className="bg-slate-300 h-auto w-1/2 rounded-md m-auto border-t-white border-t-2 border-b-slate-400 border-b-2 mt-5 overflow-auto pb-4">
-      <div className="bg-gray-400 w-full p-2 mb-4 pr-2 rounded-t-md border-b-2 border-slate-500 flex justify-between align-middle">
-        <p className="ml-2 text-2xl font-semibold text-white">{projects?.project_name}</p>
-        <p className="text-lg ml-4 font-normal text-gray-500 mr-2" >By: {projects.created_by}</p>
+    <div className="bg-white border-r-2 border-l-2 border-r-slate-400 border-l-slate-400 h-auto w-1/2 rounded-lg m-auto border-t-slate-300 border-t-2 border-b-slate-600 border-b-2 mt-5 overflow-auto pb-4 shadow-lg shadow-slate-300">
+      <div className="bg-[#5ac0d9] w-full p-2 mb-4 pr-2 rounded-t-md border-[#2e7283] flex justify-between align-middle">
+        <p className="ml-2 text-2xl font-semibold text-slate-800">{props.project.project_name}</p>
+        <p className="text-lg ml-4 text-slate-800 font-semibold mr-2" >By: {props.project.created_by}</p>
       </div>
     
       
