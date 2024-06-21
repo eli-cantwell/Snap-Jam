@@ -1,14 +1,13 @@
-import { useProject } from '../hooks/useUsers'
+import { useGetAllProjects } from '../hooks/useUsers'
 
 export default function Home() {
-  const projectHook = useProject()
 
   const {
     data: projects,
     isPending,
     isError,
     error,
-  } = projectHook.getProjects()
+  } = useGetAllProjects()
 
   isPending && <p>Loading...</p>
 
