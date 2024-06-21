@@ -11,7 +11,7 @@ function App() {
       <IfAuthenticated>
         <Nav />
         <Outlet />
-        <SingleProject id={2}/>
+        {<SingleProject id={2}/>}
       </IfAuthenticated>
       <IfNotAuthenticated>
         <Login />
