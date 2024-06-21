@@ -1,8 +1,9 @@
 import { Router } from 'express'
 import checkJwt, { JwtRequest } from '../auth0.ts'
-import { StatusCodes } from 'http-status-codes'
-
+// import { StatusCodes } from 'http-status-codes'
+import { ProjectData } from '../../models/project.ts'
 import * as db from '../db/db.ts'
+import { StatusCodes } from 'http-status-codes'
 
 const router = Router()
 export default router
@@ -63,5 +64,17 @@ router.get('/getdevprojects/:id', async (req, res) => {
 // UPDATE
 
 // CREATE
-
+router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
+    if (!req.auth?.sub) {
+        res.sendStatus(StatusCodes.UNAUTHORIZED)
+        return
+    }
+     try {
+      const data: ProjectData = req.body
+      await db.createProject(data)
+      res.sendStatus(StatusCodes.CREATED)
+} catch (err) {
+    next(err)
+  }
+})
 // DELETE

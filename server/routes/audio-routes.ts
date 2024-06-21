@@ -1,17 +1,17 @@
 import { Router } from 'express'
-import checkJwt, { JwtRequest } from '../auth0.ts'
-import { StatusCodes } from 'http-status-codes'
+// import checkJwt, { JwtRequest } from '../auth0.ts'
+// import { StatusCodes } from 'http-status-codes'
 
 import * as db from '../db/db.ts'
 
 const router= Router()
 export default router
 // ALL
-router.get('/', checkJwt, async (req: JwtRequest, res) => {
-    if (!req.auth?.sub) {
-        res.sendStatus(StatusCodes.UNAUTHORIZED)
-        return
-      }
+router.get('/', async (req, res) => {
+    // if (!req.auth?.sub) {
+    //     res.sendStatus(StatusCodes.UNAUTHORIZED)
+    //     return
+    //   }
     try {
         const data = await db.getAllAudio()
         res.json (data)
@@ -31,12 +31,12 @@ router.get('/getdevaudio', async (req, res) => {
     }
 })
 // ID
-router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
+router.get('/:id', async (req, res) => {
     const { id } = req.params
-    if (!req.auth?.sub) {
-        res.sendStatus(StatusCodes.UNAUTHORIZED)
-        return
-      }
+    // if (!req.auth?.sub) {
+    //     res.sendStatus(StatusCodes.UNAUTHORIZED)
+    //     return
+    //   }
     try {
         const data = await db.getAudioById(Number(id))
         res.json (data)
@@ -46,12 +46,12 @@ router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
     }
 })
 
-router.get('/byProject/:id', checkJwt, async (req: JwtRequest, res) => {
+router.get('/byProject/:id', async (req, res) => {
     const { id } = req.params
-    if (!req.auth?.sub) {
-        res.sendStatus(StatusCodes.UNAUTHORIZED)
-        return
-      }
+    // if (!req.auth?.sub) {
+    //     res.sendStatus(StatusCodes.UNAUTHORIZED)
+    //     return
+    //   }
     try {
         const data = await db.getAudioByProject(Number(id))
         res.json (data)

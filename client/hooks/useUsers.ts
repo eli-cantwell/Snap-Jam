@@ -8,103 +8,89 @@ import { Audio } from "../../models/Audio"
 const rootURL = '/api/v1'
 
 //TODO create types for Comments and Audio
-export function useUser() {
-  function useGetAllUsers() {
-    const { isAuthenticated, getAccessTokenSilently } = useAuth0()
+    function useGetAllUsers() {
+        const {isAuthenticated, getAccessTokenSilently} = useAuth0()
 
-    return useQuery({
-      queryKey: ['users'],
-      queryFn: async () => {
-        const token = await getAccessTokenSilently()
-        if (!token) {
-          throw new Error('Authentication error')
-        }
-        const result = await request
-          .get(`${rootURL}/users`)
-          .auth(token, { type: 'bearer' })
+        return useQuery({
+            queryKey: ['users'],
+            queryFn: async () => {
+                const token = await getAccessTokenSilently()
+                if (!token) {
+                    throw new Error('Authentication error')
+                }
+                const result = await request.get(`${rootURL}/users`).auth(token, {type: 'bearer'})
 
-        return result.body as User[]
-      },
-      enabled: isAuthenticated, // Only run the query if the user is authenticated
-    })
-  }
+                return result.body as User[]
+            },
+            enabled: isAuthenticated, // Only run the query if the user is authenticated
+        })
+    }
 
-  function useGetUserById(id: number) {
-    const { isAuthenticated, getAccessTokenSilently } = useAuth0()
+    function useGetUserById(id: number) {
+        const {isAuthenticated, getAccessTokenSilently} = useAuth0()
 
-    return useQuery({
-      queryKey: ['user'],
-      queryFn: async () => {
-        const token = await getAccessTokenSilently()
-        if (!token) {
-          throw new Error('Authentication error')
-        }
-        const result = await request
-          .get(`${rootURL}/users/${id}`)
-          .auth(token, { type: 'bearer' })
+        return useQuery({
+            queryKey: ['user'],
+            queryFn: async () => {
+                const token = await getAccessTokenSilently()
+                if (!token) {
+                    throw new Error('Authentication error')
+                }
+                const result = await request.get(`${rootURL}/users/${id}`).auth(token, {type: 'bearer'})
 
-        return result.body as User
-      },
-      enabled: isAuthenticated,
-    })
-  }
+                return result.body as User
+            },
+            enabled: isAuthenticated 
+        })
+    }
 
-  return {
-    getUsers: useGetAllUsers,
-    userById: useGetUserById,
-  }
-}
+    export const user = {
+        useGetAllUsers,
+        useGetUserById
+    }
 
-export function useProject() {
-  function useGetAllProjects() {
-    const { isAuthenticated, getAccessTokenSilently } = useAuth0()
 
-    return useQuery({
-      queryKey: ['projects'],
-      queryFn: async () => {
-        const token = await getAccessTokenSilently()
-        if (!token) {
-          throw new Error('Authentication Error')
-        }
-        const result = await request
-          .get(`${rootURL}/projects`)
-          .auth(token, { type: 'bearer' })
+// export function useProject() {
+    export function useGetAllProjects() {
+        const {isAuthenticated, getAccessTokenSilently} = useAuth0()
 
-        return result.body as Project[]
-      },
-      enabled: isAuthenticated,
-    })
-  }
+        return useQuery({
+            queryKey: ['projects'],
+            queryFn: async () => {
+                const token = await getAccessTokenSilently()
+                if (!token) {
+                    throw new Error('Authentication Error')
+                }
+                const result = await request.get(`${rootURL}/projects`).auth(token, {type: 'bearer'})
 
-  function useGetProjectById(id: number) {
-    const { isAuthenticated, getAccessTokenSilently } = useAuth0()
+                return result.body as Project[]
+            },
+            enabled: isAuthenticated,
+        })
+    }
 
-    return useQuery({
-      queryKey: ['project'],
-      queryFn: async () => {
-        const token = await getAccessTokenSilently()
-        if (!token) {
-          throw new Error('Authentication error')
-        }
-        const result = await request
-          .get(`${rootURL}/projects/${id}`)
-          .auth(token, { type: 'bearer' })
+    export function useGetProjectById(id: number) {
+        const {isAuthenticated, getAccessTokenSilently} = useAuth0()
 
-        return result.body as Project
-      },
-      enabled: isAuthenticated,
-    })
-  }
+        return useQuery({
+            queryKey: ['project'],
+            queryFn: async () => {
+                const token = await getAccessTokenSilently()
+                if (!token) {
+                    throw new Error("Authentication error")
+                }
+                const result = await request.get(`${rootURL}/projects/${id}`).auth(token, {type: 'bearer'})
 
-  return {
-    getProjects: useGetAllProjects,
-    getProjectById: useGetProjectById,
-  }
-}
+                return result.body as Project
+            },
+            enabled: isAuthenticated,
+        })
+    }
 
-export function useAudio() {
-  function useGetAllAudio() {
-    const { isAuthenticated, getAccessTokenSilently } = useAuth0()
+
+    function useGetAllAudio() {
+        const {isAuthenticated, getAccessTokenSilently} = useAuth0()
+
 
     return useQuery({
       queryKey: ['audios'],
@@ -147,11 +133,11 @@ export function useAudio() {
 
 
 
-    function useGetAudioByProjectId(id: number) {
+    function useGetAudioByProjectId(id: number | undefined) {
         const {isAuthenticated, getAccessTokenSilently} = useAuth0()
 
         return useQuery({
-            queryKey: ['projectAudio'],
+            queryKey: ['projectAudio', id],
             queryFn: async () => {
                 const token = await getAccessTokenSilently()
 
@@ -162,65 +148,57 @@ export function useAudio() {
 
                 return result.body as Audio[]
             },
+            enabled: isAuthenticated && id != undefined
+        })
+    }
+
+    export const audio = {
+        useGetAllAudio,
+        useGetAudioById,
+        useGetAudioByProjectId
+    }
+    
+    function useGetAllComments() {
+        const {isAuthenticated, getAccessTokenSilently} = useAuth0()
+
+        return useQuery({
+            queryKey: ['comments'],
+            queryFn: async () => {
+                const token = await getAccessTokenSilently()
+
+                if (!token) {
+                    throw new Error('Authentication Error')
+                }
+                const result = await request.get(`${rootURL}/comments`).auth(token, {type: 'bearer'})
+
+                return result.body //Comment
+            },
             enabled: isAuthenticated
         })
     }
 
-    return {
-        getAudio: useGetAllAudio,
-        getAudioById: useGetAudioById,
-        getAudioByProject: useGetAudioByProjectId
+    function useGetCommentById(id: number) {
+        const {isAuthenticated, getAccessTokenSilently} = useAuth0()
+
+        return useQuery({
+            queryKey: ['comment'],
+            queryFn: async () => {
+                const token = await getAccessTokenSilently()
+                
+                if (!token) {
+                    throw new Error(`Authentication Error`)
+                }
+                const result = await request.get(`${rootURL}/comments/${id}`).auth(token, {type: 'bearer'})
+
+                return result.body //as Comment
+            },
+            enabled: isAuthenticated
+        })
     }
-    
-}
-
-export function useComment() {
-  function useGetAllComments() {
-    const { isAuthenticated, getAccessTokenSilently } = useAuth0()
-
-    return useQuery({
-      queryKey: ['comments'],
-      queryFn: async () => {
-        const token = await getAccessTokenSilently()
-
-        if (!token) {
-          throw new Error('Authentication Error')
-        }
-        const result = await request
-          .get(`${rootURL}/comments`)
-          .auth(token, { type: 'bearer' })
-
-        return result.body //Comment
-      },
-      enabled: isAuthenticated,
-    })
-  }
-
-  function useGetCommentById(id: number) {
-    const { isAuthenticated, getAccessTokenSilently } = useAuth0()
-
-    return useQuery({
-      queryKey: ['comment'],
-      queryFn: async () => {
-        const token = await getAccessTokenSilently()
-
-        if (!token) {
-          throw new Error(`Authentication Error`)
-        }
-        const result = await request
-          .get(`${rootURL}/comments/${id}`)
-          .auth(token, { type: 'bearer' })
-
-        return result.body //as Comment
-      },
-      enabled: isAuthenticated,
-    })
-  }
-  return {
-    getComments: useGetAllComments,
-    getCommentById: useGetCommentById,
-  }
-}
+    export const comments = {
+        useGetAllComments,
+        useGetCommentById
+    }
 
 //   function useDeleteResponse() {
 //     const { getAccessTokenSilently } = useAuth0()
