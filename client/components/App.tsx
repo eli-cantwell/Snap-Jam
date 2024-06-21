@@ -7,7 +7,8 @@ import { IfAuthenticated, IfNotAuthenticated } from './Authenticated'
 function App() {
   return (
     <>
-      <IfAuthenticated>
+    <div className="">
+    <IfAuthenticated>
         <Nav />
         <Outlet />
         
@@ -15,6 +16,7 @@ function App() {
       <IfNotAuthenticated>
         <Login />
       </IfNotAuthenticated>
+    </div>
     </>
   )
 }
