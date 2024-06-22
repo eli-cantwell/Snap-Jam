@@ -23,22 +23,44 @@ export default function SingleProject(props: Props) {
   if (isAudioError) {return <p>{`${audioError}`}</p>}
 
   return (
-    <>
-    <div className=" relative bg-white border-r-2 border-l-2 border-r-slate-400 border-l-slate-400 h-auto w-1/2 rounded-lg m-auto border-t-slate-300 border-t-2 border-b-slate-600 border-b-2 mt-5 overflow-auto pb-4 shadow-lg shadow-slate-400">
-      <div className="bg-gradient-to-r from-blue-200 to-[#5ac0d9] border-b-[1px] border-b-slate-200 w-full p-2 mb-4 pr-2 rounded-t-md border-[#2e7283] flex justify-between align-middle">
-        <p className="ml-2 text-2xl font-semibold text-slate-800">{props.project.project_name}</p>
-        <p className="text-lg ml-4 text-slate-800 font-semibold mr-2" >By: {props.project.created_by}</p>
-      </div>
+    // <>
+    // <div className=" relative bg-white border-r-2 border-l-2 border-r-slate-400 border-l-slate-400 h-auto w-1/2 rounded-lg m-auto border-t-slate-300 border-t-2 border-b-slate-600 border-b-2 mt-5 overflow-auto pb-4 shadow-lg shadow-slate-400">
+    //   <div className="bg-gradient-to-r from-blue-200 to-[#5ac0d9] border-b-[1px] border-b-slate-200 w-full p-2 mb-4 pr-2 rounded-t-md border-[#2e7283] flex justify-between align-middle">
+    //     <p className="ml-2 text-2xl font-semibold text-slate-800">{props.project.project_name}</p>
+    //     <p className="text-lg ml-4 text-slate-800 font-semibold mr-2" >By: {props.project.created_by}</p>
+    //   </div>
     
       
-      {audioData.map((aud: Audio) => <p className=" ml-4" key={aud.id}>{aud.filepath}</p>)}
-      {audioData.map((aud: Audio) => <p className=" ml-4 font-normal text-gray-500" key={aud.length}>Duration: {aud.length}s</p>)}
-      <button className="absolute bottom-[3em] w-[8em] right-0 bg-gradient-to-r from-blue-200 to-[#5ac0d9] text-slate-700 font-medium hover:scale-105 hover:shadow-sm shadow-md ease-in-out duration-[100ms]">Jam</button>
-      <button className="absolute bottom-0 w-[8em] right-0 bg-gradient-to-r from-blue-200 to-[#5ac0d9] text-slate-700 font-medium hover:scale-105 hover:shadow-sm shadow-md ease-in-out duration-[100ms]">Comments</button>
-    </div>   
+    //   {audioData.map((aud: Audio) => <p className=" ml-4" key={aud.id}>{aud.filepath}</p>)}
+    //   {audioData.map((aud: Audio) => <p className=" ml-4 font-normal text-gray-500" key={aud.length}>Duration: {aud.length}s</p>)}
+    //   <button className="absolute bottom-[3em] w-[8em] right-0 bg-gradient-to-r from-blue-200 to-[#5ac0d9] text-slate-700 font-medium hover:scale-105 hover:shadow-sm  shadow-slate-700 ease-in-out duration-[100ms]">Jam</button>
+    //   <button className="absolute bottom-0 w-[8em] right-0 bg-gradient-to-r from-blue-200 to-[#5ac0d9] text-slate-700 font-medium hover:scale-105 hover:shadow-sm  shadow-slate-700 ease-in-out duration-[100ms]">Comments</button>
+    // </div>   
+    // </>
+    <>
+      <div className="relative bg-white border border-slate-300 h-auto w-1/2 rounded-lg mx-auto mt-5 overflow-auto pb-4 shadow-lg">
+        <div className="bg-gradient-to-r from-blue-200 to-[#5ac0d9] border-b border-slate-200 w-full p-4 rounded-t-lg flex justify-between items-center">
+          <p className="text-2xl font-semibold text-slate-800">{props.project.project_name}</p>
+          <p className="text-lg text-slate-800 font-semibold">By: {props.project.created_by}</p>
+        </div>
+
+        <div className="p-4">
+          {audioData.map((aud) => (
+            <div key={aud.id} className="mb-2">
+              <p className="text-gray-800">{aud.filepath}</p>
+              <p className="font-normal text-gray-500">Duration: {aud.length}s</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="absolute bottom-4 right-4 space-x-2">
+          <button className="w-26 bg-gradient-to-r from-blue-200 to-[#5ac0d9] text-slate-700 font-medium py-2 rounded-md hover:scale-105 shadow-md ease-in-out duration-100">Jam</button>
+          <button className="w-26 bg-gradient-to-r from-blue-200 to-[#5ac0d9] text-slate-700 font-medium py-2 rounded-md hover:scale-105 shadow-md ease-in-out duration-100">Comments</button>
+        </div>
+      </div>
     </>
   )
-
 }
+
 
 //bg-[#5ac0d9
