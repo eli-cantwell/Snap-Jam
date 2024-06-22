@@ -5,13 +5,6 @@ export default function CreateProject() {
 
 
     return (
-        // <div className="bg-slate-300 p-4 flex">
-        // <form>
-        //     <input placeholder="title" className="w-1/2"></input>
-        //     <input placeholder="tempo" className='w-1/2'></input>
-        //     <input placeholder="description" className='width full'></input>
-        // </form>
-        // </div>
         <div className="bg-gradient-to-br from-blue-200 to-[#5ac0d9] border border-slate-300 w-1/2 rounded-lg mx-auto mt-5 p-6 shadow-lg">
         <form className="space-y-4">
           <div>
