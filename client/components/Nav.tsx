@@ -27,6 +27,9 @@ export default function Nav() {
         <NavLink to="/" className={({isActive, isPending}) => isPending ? "pending" : isActive ? "active" : ""}>
           <h1>Home</h1>
         </NavLink>
+        <NavLink to="/create" className={({isActive, isPending}) => isPending ? "pending" : isActive ? "active" : ""}>
+          <h1>Create</h1>
+        </NavLink>
         <NavLink to="/projects" className={({isActive, isPending}) => isPending ? "pending" : isActive ? "active" : ""}>
           <h1>Projects</h1>
         </NavLink>
