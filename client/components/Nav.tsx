@@ -33,6 +33,7 @@ export default function Nav() {
       </div>
       <div className="profile-info-div">
         <h1 className="text-slate-700 font-medium">User: {user?.nickname}</h1>
+        <img alt='user profile' className="h-10 rounded-full m-auto mr-4" src={user?.picture}></img> {/* TODO link this to a profile page */}
       </div>
     </div>
   )
