@@ -54,8 +54,8 @@ export default function SingleProject(props: Props) {
         </div>
 
         <div className="absolute bottom-4 right-4 space-x-2">
-          <button className="w-26 bg-gradient-to-r from-blue-200 to-[#5ac0d9] text-slate-700 font-medium py-2 rounded-md hover:scale-105 shadow-md ease-in-out duration-100">Jam</button>
-          <button className="w-26 bg-gradient-to-r from-blue-200 to-[#5ac0d9] text-slate-700 font-medium py-2 rounded-md hover:scale-105 shadow-md ease-in-out duration-100">Comments</button>
+          <button className="w-26 bg-slate-100 text-slate-700 font-medium py-2 rounded-md hover:scale-105 shadow-md ease-in-out duration-100">Jam</button>
+          <button className="w-26 bg-slate-100 text-slate-700 font-medium py-2 rounded-md hover:scale-105 shadow-md ease-in-out duration-100">Comments</button>
         </div>
       </div>
     </>
