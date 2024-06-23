@@ -38,6 +38,15 @@ export default function CreateProject() {
     }
   };
 
+  const fd = new FormData()
+  fd.append("project_name", formState.project_name);
+  fd.append("description", formState.description);
+  fd.append("tempo", formState.tempo);
+  if (audioFile) {
+    fd.append("audioFile", audioFile);
+  }
+
+
   const handleSubmit = () => {
     console.log(formState, audioFile)
   }
