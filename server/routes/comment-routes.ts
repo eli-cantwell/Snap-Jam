@@ -46,6 +46,7 @@ router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
     }
 })
 
+
 router.get('/getdevcomments/:id',  async (req, res) => {
     const { id } = req.params
     try {

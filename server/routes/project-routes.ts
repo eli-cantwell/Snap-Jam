@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import checkJwt, { JwtRequest } from '../auth0.ts'
 // import { StatusCodes } from 'http-status-codes'
-import { ProjectData, Project } from '../../models/project.ts'
+import { ProjectData} from '../../models/project.ts'
 import * as db from '../db/db.ts'
 import { StatusCodes } from 'http-status-codes'
 
@@ -58,6 +58,8 @@ router.get('/getdevprojects/:id', async (req, res) => {
         res.json({"message" : `${e}`})
     }
 })
+
+
 // UPDATE
 
 // CREATE

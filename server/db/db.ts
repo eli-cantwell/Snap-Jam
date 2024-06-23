@@ -10,9 +10,13 @@ export async function getAllUsers() {
 
 export async function getUserById(id: number) {
   const user = await db('users').where({id}).first()
-  return user as User[]
+  return user as User
 }
 
+export async function getUserByAuthId(authId: string) {
+  const result = await db('users').where('auth0_id', authId).first()
+  return result as User
+}
 // project
 
 export async function getAllProjects() {

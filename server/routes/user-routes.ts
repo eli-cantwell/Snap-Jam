@@ -35,12 +35,9 @@ router.get('/getdevusers', async (req, res) => {
 
 // <--->
 // ID
-router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
+router.get('/:id', async (req, res) => {
     const { id } = req.params
-    if (!req.auth?.sub) {
-        res.sendStatus(StatusCodes.UNAUTHORIZED)
-        return
-      }
+
     try {
         const data = await db.getUserById(Number(id))
         res.json (data)
@@ -49,6 +46,20 @@ router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
         res.json({"message" : `${e}`})
     }
 })
+
+router.get('/auth0/:id', async (req, res) => {
+
+    const {id} = req.params
+
+    try { 
+        const data = await db.getUserByAuthId(id) 
+        res.json(data)
+    } 
+    catch (e) {
+        res.json({"message" : `${e}`})
+    }
+})
+
 
 // <--DEV-->
 

@@ -44,10 +44,28 @@ const rootURL = '/api/v1'
             enabled: isAuthenticated 
         })
     }
+    function useGetUserByAuthId(auth0_id: string) {
+        const {isAuthenticated, getAccessTokenSilently} = useAuth0()
+
+        return useQuery({
+            queryKey: ['authUser'],
+            queryFn: async () => {
+                const token = await getAccessTokenSilently()
+                if (!token) {
+                    throw new Error('Authentication error')
+                }
+                const result = await request.get(`${rootURL}/users/auth0/${auth0_id}`).auth(token, {type: 'bearer'})
+
+                return result.body as User
+            },
+            enabled: isAuthenticated
+        })
+    }
 
     export const user = {
         useGetAllUsers,
-        useGetUserById
+        useGetUserById,
+        useGetUserByAuthId
     }
 
 
