@@ -10,53 +10,49 @@ export default router
 
 // ALL
 router.get('/', async (req, res) => {
-    // if (!req.auth?.sub) {
-    //     res.sendStatus(StatusCodes.UNAUTHORIZED)
-    //     return
-    //   }
-    try {
-        const data = await db.getAllProjects()
-        res.json (data)
-    }
-    catch (e) {
-        res.json({"message" : `${e}`})
-    }
+  // if (!req.auth?.sub) {
+  //     res.sendStatus(StatusCodes.UNAUTHORIZED)
+  //     return
+  //   }
+  try {
+    const data = await db.getAllProjects()
+    res.json(data)
+  } catch (e) {
+    res.json({ message: `${e}` })
+  }
 })
 
 router.get('/getdevprojects', async (req, res) => {
-    try {
-        const data = await db.getAllProjects()
-        res.json (data)
-    }
-    catch (e) {
-        res.json({"message" : `${e}`})
-    }
+  try {
+    const data = await db.getAllProjects()
+    res.json(data)
+  } catch (e) {
+    res.json({ message: `${e}` })
+  }
 })
 // ID
 router.get('/:id', async (req, res) => {
-    const { id } = req.params
-    // if (!req.auth?.sub) {
-    //     res.sendStatus(StatusCodes.UNAUTHORIZED)
-    //     return
-    //   }
-    try {
-        const data = await db.getProjectsById(Number(id))
-        res.json (data)
-    }
-    catch (e) {
-        res.json({"message" : `${e}`})
-    }
+  const { id } = req.params
+  // if (!req.auth?.sub) {
+  //     res.sendStatus(StatusCodes.UNAUTHORIZED)
+  //     return
+  //   }
+  try {
+    const data = await db.getProjectsById(Number(id))
+    res.json(data)
+  } catch (e) {
+    res.json({ message: `${e}` })
+  }
 })
 
 router.get('/getdevprojects/:id', async (req, res) => {
-    const { id } = req.params
-    try {
-        const data = await db.getProjectsById(Number(id))
-        res.json (data)
-    }
-    catch (e) {
-        res.json({"message" : `${e}`})
-    }
+  const { id } = req.params
+  try {
+    const data = await db.getProjectsById(Number(id))
+    res.json(data)
+  } catch (e) {
+    res.json({ message: `${e}` })
+  }
 })
 // UPDATE
 

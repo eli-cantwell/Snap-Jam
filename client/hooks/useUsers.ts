@@ -122,11 +122,11 @@ const rootURL = '/api/v1'
           .get(`${rootURL}/audio/`)
           .auth(token, { type: 'bearer' })
 
-                return result.body as Audio[]
-            },
-            enabled: isAuthenticated
-        })
-    }
+        return result.body as Audio[]
+      },
+      enabled: isAuthenticated,
+    })
+  }
 
   function useGetAudioById(id: number) {
     const { isAuthenticated, getAccessTokenSilently } = useAuth0()
@@ -143,13 +143,11 @@ const rootURL = '/api/v1'
           .get(`${rootURL}/audio/${id}`)
           .auth(token, { type: 'bearer' })
 
-                return result.body as Audio
-            },
-            enabled: isAuthenticated
-        })
-    }
-
-
+        return result.body as Audio
+      },
+      enabled: isAuthenticated,
+    })
+  }
 
     function useGetAudioByProjectId(id: number | undefined) {
         const {isAuthenticated, getAccessTokenSilently} = useAuth0()
@@ -159,10 +157,12 @@ const rootURL = '/api/v1'
             queryFn: async () => {
                 const token = await getAccessTokenSilently()
 
-                if(!token) {
-                    throw new Error('Authentication Error')
-                }
-                const result = await request.get(`${rootURL}/audio/byProject/${id}`).auth(token, {type: 'bearer'})
+        if (!token) {
+          throw new Error('Authentication Error')
+        }
+        const result = await request
+          .get(`${rootURL}/audio/byProject/${id}`)
+          .auth(token, { type: 'bearer' })
 
                 return result.body as Audio[]
             },
@@ -179,44 +179,48 @@ const rootURL = '/api/v1'
     function useGetAllComments() {
         const {isAuthenticated, getAccessTokenSilently} = useAuth0()
 
-        return useQuery({
-            queryKey: ['comments'],
-            queryFn: async () => {
-                const token = await getAccessTokenSilently()
+  return useQuery({
+    queryKey: ['comments'],
+    queryFn: async () => {
+      const token = await getAccessTokenSilently()
 
-                if (!token) {
-                    throw new Error('Authentication Error')
-                }
-                const result = await request.get(`${rootURL}/comments`).auth(token, {type: 'bearer'})
+      if (!token) {
+        throw new Error('Authentication Error')
+      }
+      const result = await request
+        .get(`${rootURL}/comments`)
+        .auth(token, { type: 'bearer' })
 
-                return result.body //Comment
-            },
-            enabled: isAuthenticated
-        })
-    }
+      return result.body //Comment
+    },
+    enabled: isAuthenticated,
+  })
+}
 
-    function useGetCommentById(id: number) {
-        const {isAuthenticated, getAccessTokenSilently} = useAuth0()
+function useGetCommentsByProject(id: number) {
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0()
 
-        return useQuery({
-            queryKey: ['comment'],
-            queryFn: async () => {
-                const token = await getAccessTokenSilently()
-                
-                if (!token) {
-                    throw new Error(`Authentication Error`)
-                }
-                const result = await request.get(`${rootURL}/comments/${id}`).auth(token, {type: 'bearer'})
+  return useQuery({
+    queryKey: ['projectComment'],
+    queryFn: async () => {
+      const token = await getAccessTokenSilently()
 
-                return result.body //as Comment
-            },
-            enabled: isAuthenticated
-        })
-    }
-    export const comments = {
-        useGetAllComments,
-        useGetCommentById
-    }
+      if (!token) {
+        throw new Error(`Authentication Error`)
+      }
+      const result = await request
+        .get(`${rootURL}/comments/project/${id}`)
+        .auth(token, { type: 'bearer' })
+
+      return result.body //as Comment
+    },
+    enabled: isAuthenticated,
+  })
+}
+export const comments = {
+  useGetAllComments,
+  useGetCommentsByProject,
+}
 
 //   function useDeleteResponse() {
 //     const { getAccessTokenSilently } = useAuth0()
