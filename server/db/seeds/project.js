@@ -9,6 +9,7 @@ export const seed = async function(knex) {
     {
       id: 1,
       project_name: 'Project Alpha',
+      description: 'yay1',
       owner_id: 1,
       contributor_id: JSON.stringify([2, 3]),
       tempo: 120,
@@ -18,6 +19,7 @@ export const seed = async function(knex) {
     {
       id: 2,
       project_name: 'Project Beta',
+      description: 'yay2',
       owner_id: 2,
       contributor_id: JSON.stringify([1, 3]),
       tempo: 95,
@@ -27,6 +29,7 @@ export const seed = async function(knex) {
     {
       id: 3,
       project_name: 'Project Gamma',
+      description: 'yay3',
       owner_id: 3,
       contributor_id: JSON.stringify([1, 2]),
       tempo: 110,

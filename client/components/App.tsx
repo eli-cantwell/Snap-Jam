@@ -3,6 +3,7 @@ import Login from './Login'
 import Nav from './Nav'
 //import Footer from './Footer' //Crying face
 import { IfAuthenticated, IfNotAuthenticated } from './Authenticated'
+import Footer from './Footer'
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
     <IfAuthenticated>
         <Nav />
         <Outlet />
-        
+        <Footer />
       </IfAuthenticated>
       <IfNotAuthenticated>
         <Login />
