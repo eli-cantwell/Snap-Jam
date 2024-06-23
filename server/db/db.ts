@@ -1,5 +1,5 @@
-import { User } from '../../models/users.ts'
-import { Project } from '../../models/project.ts'
+import { User} from '../../models/users.ts'
+import { Project, ProjectData} from '../../models/project.ts'
 import db from './connection.ts'
 
 // Users
@@ -25,6 +25,13 @@ export async function getProjectsById(id: number) {
   return project as Project[]
 }
 
+export async function createProject(project: ProjectData) {
+  return db('project').insert(project)
+}
+
+export async function deleteProjectById(id: number): Promise<Project> {
+  return db('project').where({id}).del()
+}
 // comments
 
 export async function getAllComments() {

@@ -166,7 +166,7 @@ button {
 
 button:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 2px 2px rgb(21, 22, 23);
+  box-shadow: 2px 2px #333;
 }
 
 .login-main {
