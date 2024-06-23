@@ -1,7 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react"
 import { useState } from "react"
 import { ChangeEvent } from "react"
-import { user } from "../hooks/useUsers"
+// import { user } from "../hooks/useUsers"
 //import { ProjectData } from "../../models/project"
 //import { AudioData } from "../../models/Audio"
 
@@ -11,7 +11,7 @@ export default function CreateProject() {
   const {user: userData} = useAuth0()
   console.log(userData?.sub)
 
-  const {data, isPending, isError, error} = user.useGetUserByAuthId(userData?.sub)
+  // const {data, isPending, isError, error} = user.useGetUserByAuthId(userData?.sub)
 
   const [formState, setFormState] = useState({
     project_name: '',
@@ -58,10 +58,10 @@ export default function CreateProject() {
     console.log(formState, audioFile)
   }
 
-  isPending && <p>Loading...</p>
+  // isPending && <p>Loading...</p>
 
-  if (isError) {console.log(error)
-    return <p>Error: {error.message}</p>}
+  // if (isError) {console.log(error)
+  //   return <p>Error: {error.message}</p>}
 
     return (
         <div className="bg-gradient-to-br from-blue-200 to-[#5ac0d9] border border-slate-300 w-1/2 rounded-lg mx-auto mt-5 p-6 shadow-lg">
