@@ -48,7 +48,6 @@ export default function CreateProject() {
 
 
 
-
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault()
     console.log(formState, audioFile)
@@ -69,7 +68,7 @@ export default function CreateProject() {
     catch (e) {
       console.error('Error creating project', e)
     }
-  }
+
 
   // isPending && <p>Loading...</p>
 
@@ -88,6 +87,7 @@ export default function CreateProject() {
               className="mt-1 p-2 block w-full border border-slate-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
               value={formState.project_name}
               onChange={handleChange}
+              required
             />
           </div>
           <div>
@@ -120,6 +120,7 @@ export default function CreateProject() {
             accept="audio/*"
             className="mt-1 p-2 block w-full border border-slate-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white"
             onChange={handleAudioChange}
+            required
           />
         </div>
           <div className="text-right">
