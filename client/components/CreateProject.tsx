@@ -1,6 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react"
 import { useState } from "react"
 import { ChangeEvent } from "react"
+import { FormEvent } from "react"
 // import { user } from "../hooks/useUsers"
 //import { ProjectData } from "../../models/project"
 //import { AudioData } from "../../models/Audio"
@@ -47,21 +48,27 @@ export default function CreateProject() {
 
 
 
-
-
-  const handleSubmit = () => {
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault()
     console.log(formState, audioFile)
 
     const fd = new FormData()
     fd.append("project_name", formState.project_name);
     fd.append("description", formState.description);
-    fd.append("tempo", formState.tempo);
+    fd.append("tempo", formState.tempo); //Needs a bunch of random other stuff that is auto generated like: Time created, 
     if (audioFile) {
-      fd.append("audioFile", audioFile);
+      fd.append("audioFile", audioFile); //part of the Audio db, needs proj_id from the previous step to complete
     }
 
     console.log(fd)
-  }
+
+    try {
+      // POST THE STUFF
+    }
+    catch (e) {
+      console.error('Error creating project', e)
+    }
+
 
   // isPending && <p>Loading...</p>
 
