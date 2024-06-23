@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import Login from './Login'
 import Nav from './Nav'
-import Footer from './Footer' //Crying face
+// import Footer from './Footer' //Crying face
 import { IfAuthenticated, IfNotAuthenticated } from './Authenticated'
 
 function App() {
