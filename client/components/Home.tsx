@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { useGetAllProjects } from '../hooks/useUsers'
 
 export default function Home() {
@@ -28,6 +29,9 @@ export default function Home() {
           <div>
             <p>Comments: {project.comments}</p>
           </div>
+          <Link to={`/comments/project/${project.id}`}>
+            <button></button>
+          </Link>
         </div>
       ))}
     </div>
