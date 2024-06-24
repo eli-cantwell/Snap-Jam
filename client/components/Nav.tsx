@@ -22,11 +22,11 @@ export default function Nav() {
     <>
     <div className='relative w-full h-full'>
       <div className='bg-[url("/images/banner-1563536_1920.jpg")] h-48 w-fill bg-cover border-slate-300 border-b-2'></div>
-        <h1 className='absolute text-left bottom-0 left-1/4 text-white text-8xl font-semibold  w-1/2 h-full  px-4 py-10'>Snap Jam</h1>
+        <h1 className='absolute text-left bottom-0 left-1/4 text-white text-8xl font-semibold  w-1/2 h-full text-center px-4 py-10'>SnapJam</h1>
       </div>
-      <div className="nav-bar ">
+      <div className="nav-bar">
         <div className="nav-title-div">
-          <h1 className='text-slate-700 font-bold xl'>Snap Jam</h1>
+          <h1 className='text-slate-700 font-bold xl'>SnapJam</h1>
           </div>
           <div className="tab-div">
           <NavLink to="/" className={({isActive, isPending}) => isPending ? "pending" : isActive ? "active" : ""}>
