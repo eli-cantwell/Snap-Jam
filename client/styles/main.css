@@ -63,6 +63,11 @@ input {
   transition: 0.2s ease-in-out;
 }
 
+.snapjam {
+  text-align: center;
+  justify-content: center;
+}
+
 .active {
   background-color: #ffffff;
 }

@@ -3,7 +3,7 @@ export interface AudioData {
     project_id: number
     length: number
     created: string
-    created_by: number
+    created_by: string
 }
 
 export interface Audio extends AudioData {
