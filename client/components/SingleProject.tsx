@@ -1,10 +1,14 @@
 //import { Audio } from "../../models/Audio"
 import { audio, comments } from '../hooks/useUsers'
 import { Project } from '../../models/project'
+
 import Comments from './Comments'
 import CommentForm from './CommentForm'
 import { useState } from 'react'
 //import { useState } from "react"
+import { whatever } from './AudioMerge'
+import { usePlayer } from '../player'
+
 
 interface Props {
   project: Project
@@ -12,6 +16,7 @@ interface Props {
 
 export default function SingleProject(props: Props) {
   const [commentsBool, setCommentsBool] = useState(false)
+  const player = usePlayer()
 
   const {
     data: audioData,
@@ -20,6 +25,13 @@ export default function SingleProject(props: Props) {
     error: audioError,
   } = audio.useGetAudioByProjectId(Number(props.project.id))
   //const {data: commentsData, isPending: isPendingComments, isError: isCommentsError, error: commentError} = comments.useGetAllComments() //TODO get comments by project id //TODO add pending and error test
+  async function handleJam() {
+    if (!audioData) {
+      return
+    }
+    await player.load(audioData.map((data) => data.filepath))
+    player.play()
+  }
 
   if (isPendingAudio) {
     console.log('loading audio')
@@ -59,6 +71,7 @@ export default function SingleProject(props: Props) {
         <div className="absolute bottom-4 right-4 space-x-2">
           <button className="w-26 rounded-md bg-slate-100 py-2 font-medium text-slate-700 shadow-md duration-100 ease-in-out hover:scale-105">
             Jam
+            onClick={handleJam}
           </button>
           <button
             onClick={handleComments}
