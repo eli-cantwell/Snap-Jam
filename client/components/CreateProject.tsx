@@ -84,6 +84,7 @@ export default function CreateProject() {
       const {response: id} = await projectHook.mutateAsync(newProj)
       console.log(filepath)
       console.log(id)
+      // CONSTRUCT ADD AUDIO POST ROUTE
     }
     catch (e) {
       console.error('Error creating project', e)
