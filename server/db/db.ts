@@ -13,6 +13,10 @@ export async function getUserById(id: number) {
   return user as User[]
 }
 
+export async function addUser(userObj: User) {
+  await db('users').insert(userObj)
+}
+
 // project
 
 export async function getAllProjects() {

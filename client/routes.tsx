@@ -6,10 +6,11 @@ import Login from './components/Login.tsx'
 import CreateProject from './components/CreateProject.tsx'
 import Comments from './components/Comments.tsx'
 import Register from './components/Register.tsx'
+import CheckRegistered from './components/CheckRegistered.tsx'
 
 export default createRoutesFromElements(
   <>
-    <Route path="/" element={<App />}>
+    <Route path="/" element={<CheckRegistered />}>
       <Route index element={<Home />} />
       <Route path="/projects" element={<Projects />} />
       <Route path="/create" element={<CreateProject />} />
