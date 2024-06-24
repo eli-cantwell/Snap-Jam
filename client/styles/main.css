@@ -188,7 +188,7 @@ height: 50%; */
   color: white;
 }
 
-button {
+.button-black {
   margin: 20px;
   background-color: #2a2c2f;
   color: #fff;

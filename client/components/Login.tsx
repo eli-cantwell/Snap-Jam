@@ -10,8 +10,8 @@ export default function Login() {
     <>
       <main className="login-main">
         <div className="login-screen m-auto">
-          <button onClick={handleLogin}>Sign up</button>
-          <button onClick={handleLogin}>Sign in</button>
+          <button className='button-black' onClick={handleLogin}>Sign up</button>
+          <button className='button-black' onClick={handleLogin}>Sign in</button>
         </div>
       </main>
     </>
