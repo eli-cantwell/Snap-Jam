@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import { useGetAllProjects } from '../hooks/useUsers'
+// import { Link } from 'react-router-dom'
+// import { useGetAllProjects } from '../hooks/useUsers'
 
 export default function Home() {
   return (

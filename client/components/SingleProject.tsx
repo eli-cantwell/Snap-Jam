@@ -16,6 +16,7 @@ interface Props {
 
 export default function SingleProject(props: Props) {
   const [commentsBool, setCommentsBool] = useState(false)
+  const [jamBool, setJamBool] = useState(false)
   const player = usePlayer()
 
   const {
@@ -29,7 +30,7 @@ export default function SingleProject(props: Props) {
     if (!audioData) {
       return
     }
-    await player.load(audioData.map((data) => data.filepath))
+    await player.load(audioData.map((data) => `/api/uploads${data.filepath}`))
     player.play()
   }
 
@@ -90,6 +91,7 @@ export default function SingleProject(props: Props) {
           <Comments id={props.project.id} />
           <CommentForm for={props.project.id} />
         </div>
+        {}
       )}
     </>
   )
