@@ -48,7 +48,7 @@ export default function CommentForm(props: Props) {
           onChange={handleChange}
           value={form}
         ></input>
-        <button onClick={handleSubmit}>Submit</button>
+        <button className='button-black' onClick={handleSubmit}>Submit</button>
       </form>
     </div>
   )

@@ -58,14 +58,13 @@ export default function SingleProject(props: Props) {
         </div>
 
         <div className="p-4">
-          {audioData.map((aud) => (
+          {/* {audioData.map((aud) => (
             <div key={aud.id} className="mb-2">
               <p className="text-gray-800">{aud.filepath}</p>
-              <p className="font-normal text-gray-500">
-                Duration: {aud.length}s
-              </p>
             </div>
-          ))}
+          ))} */}
+          <p className='text-slate-600 mb-4'>{props.project.tempo}</p>
+          <p>{props.project.description}</p>
         </div>
 
         <div className="absolute bottom-4 right-4 space-x-2">

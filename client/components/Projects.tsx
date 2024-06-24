@@ -19,7 +19,7 @@ export default function Projects() {
         .slice()
         .reverse()
         .map((project) => (
-          <div key={project.id} className="single-project-div border-b-2">
+          <div key={project.id} className="single-project-div">
             <div className="single-project-info-div">
               <SingleProject project={project} />
             </div>
