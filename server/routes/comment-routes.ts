@@ -72,4 +72,13 @@ router.get('/getdevcomments/:id', async (req, res) => {
 
 // CREATE
 
+router.post('/addcomment', async (req, res) => {
+  try {
+    await db.addComment(req.body)
+    res.sendStatus(200)
+  } catch (e) {
+    res.json({ message: `${e}` })
+  }
+})
+
 // DELETE

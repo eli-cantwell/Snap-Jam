@@ -1,6 +1,10 @@
 //import { Audio } from "../../models/Audio"
 import { audio, comments } from '../hooks/useUsers'
 import { Project } from '../../models/project'
+
+import Comments from './Comments'
+import CommentForm from './CommentForm'
+import { useState } from 'react'
 //import { useState } from "react"
 import { whatever } from './AudioMerge'
 import { usePlayer } from '../player'
@@ -8,12 +12,11 @@ import { usePlayer } from '../player'
 
 interface Props {
   project: Project
-  key: number
 }
 
 export default function SingleProject(props: Props) {
-  //const {commentsBool, setCommentsBool} = useState(false)
-const player = usePlayer()
+  const [commentsBool, setCommentsBool] = useState(false)
+  const player = usePlayer()
 
   const {
     data: audioData,
@@ -38,9 +41,13 @@ const player = usePlayer()
     return <p>{`${audioError}`}</p>
   }
 
+  function handleComments() {
+    setCommentsBool(!commentsBool)
+  }
+
   return (
     <>
-      <div className="relative mx-auto mt-5 h-auto w-1/2 overflow-auto rounded-lg border border-slate-300 bg-white pb-4 shadow-lg">
+      <div className="relative mx-auto h-auto w-1/2 overflow-auto rounded-lg border border-slate-300 bg-white pb-4 shadow-lg">
         <div className="flex w-full items-center justify-between rounded-t-lg border-b border-slate-200 bg-gradient-to-r from-blue-200 to-[#5ac0d9] p-4">
           <p className="text-2xl font-semibold text-slate-800">
             {props.project.project_name}
@@ -62,17 +69,29 @@ const player = usePlayer()
         </div>
 
         <div className="absolute bottom-4 right-4 space-x-2">
-          <button
+          <button className="w-26 rounded-md bg-slate-100 py-2 font-medium text-slate-700 shadow-md duration-100 ease-in-out hover:scale-105">
+            Jam
             onClick={handleJam}
+          </button>
+          <button
+            onClick={handleComments}
             className="w-26 rounded-md bg-slate-100 py-2 font-medium text-slate-700 shadow-md duration-100 ease-in-out hover:scale-105"
           >
-            Jam
-          </button>
-          <button className="w-26 rounded-md bg-slate-100 py-2 font-medium text-slate-700 shadow-md duration-100 ease-in-out hover:scale-105">
             Comments
           </button>
         </div>
       </div>
+      {commentsBool && (
+        <div className="relative mx-auto mt-5 h-auto w-1/2 rounded-lg border border-slate-300 bg-white pb-4 shadow-lg">
+          {/* <div className="flex w-full items-center justify-between rounded-t-lg border-b border-slate-200 bg-gradient-to-r from-blue-200 to-[#5ac0d9] p-4">
+            <p className="text-2xl font-semibold text-slate-800">
+              Comments
+            </p>
+          </div> */}
+          <Comments id={props.project.id} />
+          <CommentForm for={props.project.id} />
+        </div>
+      )}
     </>
   )
 }

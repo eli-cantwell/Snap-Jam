@@ -10,11 +10,14 @@ export default function Nav() {
   //   setClass('selected')
   // }
 
-  const { user } = useAuth0()
+  const { user, logout } = useAuth0()
 
   // function handleClick() {
   //   console.log('Hello Eli ;)')
   // }
+  function handleLogOut() {
+    logout()
+  }
 
   return (
     <>
@@ -62,6 +65,7 @@ export default function Nav() {
             src={user?.picture}
           ></img>{' '}
           {/* TODO link this to a profile page */}
+          <button onClick={handleLogOut}>Log Out</button>
         </div>
       </div>
     </>

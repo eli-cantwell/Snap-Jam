@@ -1,6 +1,7 @@
-import { User} from '../../models/users.ts'
-import { Project, ProjectData} from '../../models/project.ts'
+import { User } from '../../models/users.ts'
+import { Project, ProjectData } from '../../models/project.ts'
 import db from './connection.ts'
+import {AudioData } from '../../models/Audio.ts'
 
 // Users
 export async function getAllUsers() {
@@ -30,11 +31,13 @@ export async function getProjectsById(id: number) {
 }
 
 export async function createProject(project: ProjectData) {
-  return db('project').insert(project)
+  const data = await db('project').insert(project)
+  return data[0]
+  
 }
 
 export async function deleteProjectById(id: number): Promise<Project> {
-  return db('project').where({id}).del()
+  return db('project').where({ id }).del()
 }
 // comments
 
@@ -46,6 +49,10 @@ export async function getAllComments() {
 export async function getCommentById(id: number) {
   const comment = await db('comments').where({ id }).first()
   return comment
+}
+
+export async function addComment(comment) {
+  await db('comments').insert(comment)
 }
 
 export async function getCommentsByProject(id: number) {
@@ -66,4 +73,9 @@ export async function getAudioById(id: number) {
 
 export async function getAudioByProject(projId: number) {
   return await db('audio').where({ project_id: projId })
+}
+
+export async function createAudio(proj: AudioData) {
+  const id = await db('audio').insert(proj)
+  return id[0]
 }

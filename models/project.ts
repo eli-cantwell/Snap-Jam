@@ -1,10 +1,11 @@
 export interface ProjectData {
-  project_name: string
-  owner_id: number
-  contributor_id: string
-  tempo: number
+  project_name: string,
+  description: string,
+  owner_id: string
+  contributor_id: []
+  tempo: string
   created_by: string
-  comments: string
+  comments: []
 }
 
 export interface Project extends ProjectData {

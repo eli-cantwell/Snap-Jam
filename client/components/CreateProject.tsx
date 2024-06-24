@@ -3,6 +3,11 @@ import { useState } from "react"
 import { ChangeEvent } from "react"
 import { FormEvent } from "react"
 import request from "superagent"
+import { audio, useCreateProject } from "../hooks/useUsers"
+import { ProjectData } from "../../models/project"
+import { AudioData } from "../../models/Audio"
+import { ToastContainer, toast } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css'
 // import { user } from "../hooks/useUsers"
 //import { ProjectData } from "../../models/project"
 //import { AudioData } from "../../models/Audio"
@@ -11,7 +16,11 @@ import request from "superagent"
 export default function CreateProject() {
 
   const {user: userData} = useAuth0()
-  console.log(userData?.sub)
+  const projectHook = useCreateProject()
+  const audioHook = audio.useCreateAudio()
+
+  const notify = () => toast("Project created succesfully")
+
 
   // const {data, isPending, isError, error} = user.useGetUserByAuthId(userData?.sub)
 
@@ -43,7 +52,6 @@ export default function CreateProject() {
     const file = evt.target.files?.[0];
     if (file) {
       setAudioFile(file);
-      console.log(file)
     }
   };
 
@@ -51,7 +59,8 @@ export default function CreateProject() {
 
   const handleSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault()
-    console.log(formState, audioFile)
+    console.log('click!')
+
 
     if (!audioFile) { console.error('No File'); return }
 
@@ -61,34 +70,63 @@ export default function CreateProject() {
     fd.set('my_audio', file)
 
 
-    await request.post('/api/v1/upload_audio').send(fd)
-    console.log(fd)
+    const { body: filepath} = await request.post('/api/v1/upload_audio').send(fd)
+    console.log(filepath)
+    const newFilePath = filepath.path
+
+    const userName = String(userData?.nickname)
+    const owner = String(userData?.sub)
+
+    //establish project
+
+    const newProj: ProjectData = {
+      project_name: formState.project_name,
+      description: formState.description,
+      owner_id: owner,
+      contributor_id: [],
+      tempo: formState.tempo,
+      created_by: userName,
+      comments: []
+    }
 
     try {
-      //establish project
-      const newProj = {
-        project_name: formState.project_name,
-        description: formState.description,
-        owner_id: userData?.sub,
-        contributor_id: [],
-        tempo: formState.tempo,
-        created_by: userData?.nickname,
-        comments: []
+      const {response: id} = await projectHook.mutateAsync(newProj)
+      console.log(filepath)
+      console.log(id)
+
+      const audioObject: AudioData = {
+        filepath: newFilePath,
+        project_id: id,
+        length: 0,
+        created: String(Date()),
+        created_by: userName
+
       }
 
+      const audioResponse = await audioHook.mutateAsync(audioObject)
+      console.log(audioResponse)
     }
     catch (e) {
       console.error('Error creating project', e)
     }
+
+    setFormState({
+      project_name: '',
+      description: '',
+      owner_id: '',
+      contributor_id: [],
+      tempo: '',
+      created_by: '',
+      comments: [],
+    })
+    setAudioFile(null)
+    notify()
   }
 
 
-  // isPending && <p>Loading...</p>
-
-  // if (isError) {console.log(error)
-  //   return <p>Error: {error.message}</p>}
 
     return (
+      <div>
         <div className="bg-gradient-to-br from-blue-200 to-[#5ac0d9] border border-slate-300 w-1/2 rounded-lg mx-auto mt-5 p-6 shadow-lg">
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
@@ -140,6 +178,8 @@ export default function CreateProject() {
           <button type="submit" className="w-24 bg-white text-slate-700 font-medium py-2 rounded-md hover:scale-105 shadow-md ease-in-out duration-100">Submit</button>
         </div>
         </form>
+      </div>
+      <ToastContainer />
       </div>
     )
 }

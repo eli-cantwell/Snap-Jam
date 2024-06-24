@@ -6,7 +6,7 @@ import * as db from '../db/db.ts'
 import { StatusCodes } from 'http-status-codes'
 
 const router = Router()
-export default router
+
 
 // ALL
 router.get('/', async (req, res) => {
@@ -66,12 +66,13 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
     }
      try {
       const data: ProjectData = req.body
-      await db.createProject(data)
-      res.sendStatus(StatusCodes.CREATED)
+      const response = await db.createProject(data)
+      res.json({response}).status(StatusCodes.CREATED)
 } catch (err) {
     next(err)
   }
 })
+
 // DELETE
 
 router.delete('/:id', checkJwt, async (req: JwtRequest, res, next) => {
@@ -87,3 +88,5 @@ router.delete('/:id', checkJwt, async (req: JwtRequest, res, next) => {
   next(err)
 }
 })
+
+export default router

@@ -1,5 +1,7 @@
 import SingleProject from './SingleProject'
 import { useGetAllProjects } from '../hooks/useUsers'
+import Comments from './Comments'
+import CommentForm from './CommentForm'
 
 export default function Projects() {
   const { data: projects, isPending, isError, error } = useGetAllProjects()
@@ -10,11 +12,19 @@ export default function Projects() {
     return <p>There was an error: {`${error}`}</p>
   }
 
+  console.log(projects)
   return (
     <>
-      {projects.map((project) => {
-        return <SingleProject key={project.id} project={project} />
-      })}
+      {projects
+        .slice()
+        .reverse()
+        .map((project) => (
+          <div key={project.id} className="single-project-div border-b-2">
+            <div className="single-project-info-div">
+              <SingleProject project={project} />
+            </div>
+          </div>
+        ))}
     </>
   )
 }

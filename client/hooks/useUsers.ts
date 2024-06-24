@@ -1,73 +1,106 @@
-import { useQuery } from "@tanstack/react-query"
-import { useAuth0 } from "@auth0/auth0-react"
-import request from "superagent"
-import { User } from "../../models/users"
-import { Project } from "../../models/project"
-import { Audio } from "../../models/Audio"
-import { useMutation } from "@tanstack/react-query"
+
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useAuth0 } from '@auth0/auth0-react'
+import request from 'superagent'
+import { User, UserData } from '../../models/users'
+import { Project, ProjectData } from '../../models/project'
+import { Audio, AudioData } from '../../models/Audio'
+import { useMutation } from '@tanstack/react-query'
 
 const rootURL = '/api/v1'
 
 //TODO create types for Comments and Audio
-    function useGetAllUsers() {
-        const {isAuthenticated, getAccessTokenSilently} = useAuth0()
+function useGetAllUsers() {
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0()
 
-        return useQuery({
-            queryKey: ['users'],
-            queryFn: async () => {
-                const token = await getAccessTokenSilently()
-                if (!token) {
-                    throw new Error('Authentication error')
-                }
-                const result = await request.get(`${rootURL}/users`).auth(token, {type: 'bearer'})
+  return useQuery({
+    queryKey: ['users'],
+    queryFn: async () => {
+      const token = await getAccessTokenSilently()
+      if (!token) {
+        throw new Error('Authentication error')
+      }
+      const result = await request
+        .get(`${rootURL}/users`)
+        .auth(token, { type: 'bearer' })
 
-                return result.body as User[]
-            },
-            enabled: isAuthenticated, // Only run the query if the user is authenticated
-        })
-    }
+      return result.body as User[]
+    },
+    enabled: isAuthenticated, // Only run the query if the user is authenticated
+  })
+}
 
-    function useGetUserById(id: number) {
-        const {isAuthenticated, getAccessTokenSilently} = useAuth0()
+function useGetUserById(id: number) {
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0()
 
-        return useQuery({
-            queryKey: ['user'],
-            queryFn: async () => {
-                const token = await getAccessTokenSilently()
-                if (!token) {
-                    throw new Error('Authentication error')
-                }
-                const result = await request.get(`${rootURL}/users/${id}`).auth(token, {type: 'bearer'})
+  return useQuery({
+    queryKey: ['user'],
+    queryFn: async () => {
+      const token = await getAccessTokenSilently()
+      if (!token) {
+        throw new Error('Authentication error')
+      }
+      const result = await request
+        .get(`${rootURL}/users/${id}`)
+        .auth(token, { type: 'bearer' })
 
-                return result.body as User
-            },
-            enabled: isAuthenticated 
-        })
-    }
-    function useGetUserByAuthId(auth0_id: string) {
-        const {isAuthenticated, getAccessTokenSilently} = useAuth0()
+      return result.body as User
+    },
+    enabled: isAuthenticated,
+  })
+}
 
-        return useQuery({
-            queryKey: ['authUser'],
-            queryFn: async () => {
-                const token = await getAccessTokenSilently()
-                if (!token) {
-                    throw new Error('Authentication error')
-                }
-                const result = await request.get(`${rootURL}/users/auth0/${auth0_id}`).auth(token, {type: 'bearer'})
+export function useGetAddUser() {
+  const { getAccessTokenSilently } = useAuth0()
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (user: UserData) => {
+      const token = await getAccessTokenSilently()
+      await request
+        .post(`${rootURL}/users/addUser`)
+        .send(user)
+        .auth(token, { type: 'bearer' })
+    },
+    onSuccess: async () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] })
+    },
+  })
+}
 
-                return result.body as User
-            },
-            enabled: isAuthenticated
-        })
-    }
+//     const { getAccessTokenSilently } = useAuth0()
+//     const queryClient = useQueryClient()
 
-    export const user = {
-        useGetAllUsers,
-        useGetUserById,
-        useGetUserByAuthId
-    }
+//     return useMutation({
+//       mutationFn: async (id: number) => {
+//         const token = await getAccessTokenSilently()
+//         const res = await request
+//           .delete(`${rootURL}/${id}`)
+//           .auth(token, { type: 'bearer' })
+function useGetUserByAuthId(auth0_id: string) {
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0()
 
+  return useQuery({
+    queryKey: ['authUser'],
+    queryFn: async () => {
+      const token = await getAccessTokenSilently()
+      if (!token) {
+        throw new Error('Authentication error')
+      }
+      const result = await request
+        .get(`${rootURL}/users/auth0/${auth0_id}`)
+        .auth(token, { type: 'bearer' })
+
+      return result.body as User
+    },
+    enabled: isAuthenticated,
+  })
+}
+
+export const user = {
+  useGetAllUsers,
+  useGetUserById,
+  useGetUserByAuthId,
+}
 
 // export function useProject() {
     export function useGetAllProjects() {
@@ -106,12 +139,12 @@ const rootURL = '/api/v1'
         })
     }
 
-    export function useDeleteProjectById(id: number) {
+    export function useDeleteProjectById() {
       const { isAuthenticated, getAccessTokenSilently } = useAuth0()
 
       return useMutation({
         mutationKey: ['deleteProject'],
-        mutationFn: async () => {
+        mutationFn: async (id: number) => {
           if (!isAuthenticated) {
             throw new Error("Authentication error")
           }
@@ -120,6 +153,46 @@ const rootURL = '/api/v1'
           
           return result.body as Project
         },
+      })
+    }
+
+    export function useCreateProject() {
+      const {isAuthenticated, getAccessTokenSilently} = useAuth0()
+      const queryClient = useQueryClient()
+      return useMutation({
+        mutationKey: ['createProject'],
+        mutationFn: async (obj: ProjectData) => {
+          if (!isAuthenticated) {
+            throw new Error('Authentication error')
+          }
+          const token = await getAccessTokenSilently()
+          const result = await request.post(`${rootURL}/projects`).set('Authorization', `Bearer ${token}`).send(obj)
+
+          return result.body
+        },
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['projects'] })
+        },
+      })
+    }
+
+    function useCreateAudio() {
+      const {isAuthenticated, getAccessTokenSilently} = useAuth0()
+      const queryClient = useQueryClient()
+      return useMutation({
+        mutationKey: ['createAudio'],
+        mutationFn: async (obj: AudioData) => {
+          if (!isAuthenticated) {
+            throw new Error('Authentication error')
+          }
+          const token = await getAccessTokenSilently()
+          const result = await request.post(`${rootURL}/audio`).set('Authorization', `Bearer ${token}`).send(obj)
+
+          return result.body
+        },
+        onSuccess: () => {
+          queryClient.invalidateQueries({queryKey: ['audios', 'projectAudio']})
+        }
       })
     }
 
@@ -191,11 +264,13 @@ const rootURL = '/api/v1'
     export const audio = {
         useGetAllAudio,
         useGetAudioById,
-        useGetAudioByProjectId
+        useGetAudioByProjectId,
+        useCreateAudio
     }
     
     function useGetAllComments() {
         const {isAuthenticated, getAccessTokenSilently} = useAuth0()
+
 
   return useQuery({
     queryKey: ['comments'],
@@ -219,7 +294,7 @@ function useGetCommentsByProject(id: number) {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0()
 
   return useQuery({
-    queryKey: ['projectComment'],
+    queryKey: ['projectComment', id],
     queryFn: async () => {
       const token = await getAccessTokenSilently()
 
@@ -238,6 +313,23 @@ function useGetCommentsByProject(id: number) {
 export const comments = {
   useGetAllComments,
   useGetCommentsByProject,
+}
+
+export function useGetAddComment(id: number) {
+  const { getAccessTokenSilently } = useAuth0()
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (comment) => {
+      const token = await getAccessTokenSilently()
+      await request
+        .post(`${rootURL}/comments/addcomment`)
+        .send(comment)
+        .auth(token, { type: 'bearer' })
+    },
+    onSuccess: async () => {
+      queryClient.invalidateQueries({ queryKey: ['projectComment', id] })
+    },
+  })
 }
 
 //   function useDeleteResponse() {
