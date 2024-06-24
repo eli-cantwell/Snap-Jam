@@ -35,19 +35,6 @@ server.post('/api/v1/upload_audio', upload.single('my_audio'), (req, res) => {
   res.json({"path": req.file?.filename})
 })
 
-//From the docs:
-
-// server.post('/profile', function (req, res) { 
-//   upload(req, res, function (err) {
-//     if (err instanceof multer.MulterError) {
-//       // A Multer error occurred when uploading
-//     } else if (err) {
-//       // An unknown error occurred when uploading.
-//     }
-
-//     // Everything went fine.
-//   })
-// })
 
 server.use('/api/v1/fruits', fruitRoutes)
 server.use('/api/v1/users', userRoutes)
