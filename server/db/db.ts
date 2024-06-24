@@ -30,7 +30,9 @@ export async function getProjectsById(id: number) {
 }
 
 export async function createProject(project: ProjectData) {
-  return db('project').insert(project)
+  const data = await db('project').insert(project)
+  return data[0]
+  
 }
 
 export async function deleteProjectById(id: number): Promise<Project> {

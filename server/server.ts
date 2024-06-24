@@ -29,7 +29,11 @@ const upload = multer({ storage: storage })
 
 server.use(express.json())
 
-server.use('/api/v1/uploads', express.static(Path.resolve('storage/uploads')))
+server.use('/api/uploads', express.static(Path.resolve('storage/uploads')))
+
+server.post('/api/v1/upload_audio', upload.single('my_audio'), (req, res) => {
+  res.json({"path": req.file?.filename})
+})
 
 //From the docs:
 

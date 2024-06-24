@@ -133,7 +133,7 @@ const rootURL = '/api/v1'
             throw new Error('Authentication error')
           }
           const token = await getAccessTokenSilently()
-          const result = await request.post(`${rootURL}/projects/`).auth(token, {type: 'bearer'}).send(obj)
+          const result = await request.post(`${rootURL}/projects`).set('Authorization', `Bearer ${token}`).send(obj)
 
           return result.body
         }
