@@ -1,5 +1,5 @@
-import { User} from '../../models/users.ts'
-import { Project, ProjectData} from '../../models/project.ts'
+import { User } from '../../models/users.ts'
+import { Project, ProjectData } from '../../models/project.ts'
 import db from './connection.ts'
 
 // Users
@@ -11,10 +11,6 @@ export async function getAllUsers() {
 export async function getUserById(id: number) {
   const user = await db('users').where({ id }).first()
   return user as User
-}
-
-export async function addUser(userObj: User) {
-  await db('users').insert(userObj)
 }
 
 export async function getUserByAuthId(authId: string) {
@@ -38,7 +34,7 @@ export async function createProject(project: ProjectData) {
 }
 
 export async function deleteProjectById(id: number): Promise<Project> {
-  return db('project').where({id}).del()
+  return db('project').where({ id }).del()
 }
 // comments
 
@@ -50,6 +46,10 @@ export async function getAllComments() {
 export async function getCommentById(id: number) {
   const comment = await db('comments').where({ id }).first()
   return comment
+}
+
+export async function addComment(comment) {
+  await db('comments').insert(comment)
 }
 
 export async function getCommentsByProject(id: number) {
