@@ -12,7 +12,7 @@ function App() {
     <IfAuthenticated>
         <Nav />
         <Outlet />
-        <Footer />
+        {/* <Footer /> */}
       </IfAuthenticated>
       <IfNotAuthenticated>
         <Login />

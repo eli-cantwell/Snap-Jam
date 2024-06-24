@@ -75,11 +75,29 @@ export function useGetAddUser() {
 //         const res = await request
 //           .delete(`${rootURL}/${id}`)
 //           .auth(token, { type: 'bearer' })
+    function useGetUserByAuthId(auth0_id: string) {
+        const {isAuthenticated, getAccessTokenSilently} = useAuth0()
 
-export const user = {
-  useGetAllUsers,
-  useGetUserById,
-}
+        return useQuery({
+            queryKey: ['authUser'],
+            queryFn: async () => {
+                const token = await getAccessTokenSilently()
+                if (!token) {
+                    throw new Error('Authentication error')
+                }
+                const result = await request.get(`${rootURL}/users/auth0/${auth0_id}`).auth(token, {type: 'bearer'})
+
+                return result.body as User
+            },
+            enabled: isAuthenticated
+        })
+    }
+
+    export const user = {
+        useGetAllUsers,
+        useGetUserById,
+        useGetUserByAuthId
+    }
 
 // export function useProject() {
 export function useGetAllProjects() {

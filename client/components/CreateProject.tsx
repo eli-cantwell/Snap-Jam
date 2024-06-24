@@ -1,10 +1,19 @@
+import { useAuth0 } from "@auth0/auth0-react"
 import { useState } from "react"
 import { ChangeEvent } from "react"
+import { FormEvent } from "react"
+import request from "superagent"
+// import { user } from "../hooks/useUsers"
 //import { ProjectData } from "../../models/project"
 //import { AudioData } from "../../models/Audio"
 
 
 export default function CreateProject() {
+
+  const {user: userData} = useAuth0()
+  console.log(userData?.sub)
+
+  // const {data, isPending, isError, error} = user.useGetUserByAuthId(userData?.sub)
 
   const [formState, setFormState] = useState({
     project_name: '',
@@ -38,18 +47,36 @@ export default function CreateProject() {
     }
   };
 
-  const fd = new FormData()
-  fd.append("project_name", formState.project_name);
-  fd.append("description", formState.description);
-  fd.append("tempo", formState.tempo);
-  if (audioFile) {
-    fd.append("audioFile", audioFile);
-  }
 
 
-  const handleSubmit = () => {
+  const handleSubmit = async (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault()
     console.log(formState, audioFile)
+
+    if (!audioFile) { console.error('No File'); return }
+
+
+    const file = audioFile
+    const fd = new FormData()
+    fd.set('my_audio', file)
+
+
+    await request.post('/api/v1/upload_audio').send(fd)
+    console.log(fd)
+
+    try {
+      // POST THE STUFF
+    }
+    catch (e) {
+      console.error('Error creating project', e)
+    }
   }
+
+
+  // isPending && <p>Loading...</p>
+
+  // if (isError) {console.log(error)
+  //   return <p>Error: {error.message}</p>}
 
     return (
         <div className="bg-gradient-to-br from-blue-200 to-[#5ac0d9] border border-slate-300 w-1/2 rounded-lg mx-auto mt-5 p-6 shadow-lg">
@@ -63,6 +90,7 @@ export default function CreateProject() {
               className="mt-1 p-2 block w-full border border-slate-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
               value={formState.project_name}
               onChange={handleChange}
+              required
             />
           </div>
           <div>
@@ -95,6 +123,7 @@ export default function CreateProject() {
             accept="audio/*"
             className="mt-1 p-2 block w-full border border-slate-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white"
             onChange={handleAudioChange}
+            required
           />
         </div>
           <div className="text-right">
