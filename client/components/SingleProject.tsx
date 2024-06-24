@@ -24,7 +24,8 @@ export default function SingleProject(props: Props) {
     isError: isAudioError,
     error: audioError,
   } = audio.useGetAudioByProjectId(Number(props.project.id))
-  //const {data: commentsData, isPending: isPendingComments, isError: isCommentsError, error: commentError} = comments.useGetAllComments() //TODO get comments by project id //TODO add pending and error test
+  
+  
   async function handleJam() {
     if (!audioData) {
       return
