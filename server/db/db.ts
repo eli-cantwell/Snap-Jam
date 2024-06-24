@@ -1,6 +1,7 @@
 import { User} from '../../models/users.ts'
 import { Project, ProjectData} from '../../models/project.ts'
 import db from './connection.ts'
+import { Audio, AudioData } from '../../models/Audio.ts'
 
 // Users
 export async function getAllUsers() {
@@ -68,4 +69,9 @@ export async function getAudioById(id: number) {
 
 export async function getAudioByProject(projId: number) {
   return await db('audio').where({ project_id: projId })
+}
+
+export async function createAudio(proj: AudioData) {
+  const id = await db('audio').insert(proj)
+  return id[0]
 }

@@ -3,6 +3,8 @@ import { Router } from 'express'
 // import { StatusCodes } from 'http-status-codes'
 
 import * as db from '../db/db.ts'
+import { AudioData } from '../../models/Audio.ts'
+import checkJwt, { JwtRequest } from '../auth0.ts'
 
 const router= Router()
 export default router
@@ -76,5 +78,13 @@ router.get('/getdevaudio/:id', async (req, res) => {
 // UPDATE
 
 // CREATE
+
+// router.post('/', checkJwt, async (req: JwtRequest, res) => {
+//     const data: AudioData = req.body
+//     try {
+//         const id = await db.createAudio(data)
+//         res.json(id)
+//     } 
+// })
 
 // DELETE
