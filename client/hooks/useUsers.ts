@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import { useAuth0 } from "@auth0/auth0-react"
 import request from "superagent"
 import { User } from "../../models/users"
-import { Project } from "../../models/project"
+import { Project, ProjectData } from "../../models/project"
 import { Audio } from "../../models/Audio"
 import { useMutation } from "@tanstack/react-query"
 
@@ -106,12 +106,12 @@ const rootURL = '/api/v1'
         })
     }
 
-    export function useDeleteProjectById(id: number) {
+    export function useDeleteProjectById() {
       const { isAuthenticated, getAccessTokenSilently } = useAuth0()
 
       return useMutation({
         mutationKey: ['deleteProject'],
-        mutationFn: async () => {
+        mutationFn: async (id: number) => {
           if (!isAuthenticated) {
             throw new Error("Authentication error")
           }
@@ -120,6 +120,23 @@ const rootURL = '/api/v1'
           
           return result.body as Project
         },
+      })
+    }
+
+    export function useCreateProject() {
+      const {isAuthenticated, getAccessTokenSilently} = useAuth0()
+
+      return useMutation({
+        mutationKey: ['createProject'],
+        mutationFn: async (obj: ProjectData) => {
+          if (!isAuthenticated) {
+            throw new Error('Authentication error')
+          }
+          const token = await getAccessTokenSilently()
+          const result = await request.post(`${rootURL}/projects/`).auth(token, {type: 'bearer'}).send(obj)
+
+          return result.body
+        }
       })
     }
 
