@@ -65,7 +65,17 @@ export default function CreateProject() {
     console.log(fd)
 
     try {
-      // POST THE STUFF
+      //establish project
+      const newProj = {
+        project_name: formState.project_name,
+        description: formState.description,
+        owner_id: userData?.sub,
+        contributor_id: [],
+        tempo: formState.tempo,
+        created_by: userData?.nickname,
+        comments: []
+      }
+
     }
     catch (e) {
       console.error('Error creating project', e)
