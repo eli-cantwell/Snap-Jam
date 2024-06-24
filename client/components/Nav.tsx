@@ -1,23 +1,25 @@
 import { useAuth0 } from '@auth0/auth0-react'
 //import { useState } from 'react'
-import {NavLink } from 'react-router-dom'
-
-
+import { NavLink } from 'react-router-dom'
 
 export default function Nav() {
   // const [selected, setSelected] = useState(false)
   // const [class, setClass] = useState('not-selected')
-  
+
   // if (selected == true) {
   //   setClass('selected')
   // }
 
-  const { user } = useAuth0()
+  const { user, logout } = useAuth0()
 
   // function handleClick() {
   //   console.log('Hello Eli ;)')
   // }
-  
+
+  function handleLogOut() {
+    logout()
+  }
+
   return (
     <>
     <div className='relative w-full h-full'>
@@ -32,18 +34,34 @@ export default function Nav() {
           <NavLink to="/" className={({isActive, isPending}) => isPending ? "pending" : isActive ? "active" : ""}>
             <h1>Home</h1>
           </NavLink>
-          <NavLink to="/create" className={({isActive, isPending}) => isPending ? "pending" : isActive ? "active" : ""}>
+          <NavLink
+            to="/create"
+            className={({ isActive, isPending }) =>
+              isPending ? 'pending' : isActive ? 'active' : ''
+            }
+          >
             <h1>Create</h1>
           </NavLink>
-          <NavLink to="/projects" className={({isActive, isPending}) => isPending ? "pending" : isActive ? "active" : ""}>
+          <NavLink
+            to="/projects"
+            className={({ isActive, isPending }) =>
+              isPending ? 'pending' : isActive ? 'active' : ''
+            }
+          >
             <h1>Projects</h1>
           </NavLink>
         </div>
-      <div className="profile-info-div">
-        <h1 className="text-slate-700 font-medium">User: {user?.nickname}</h1>
-        <img alt='user profile' className="h-10 rounded-full m-auto mr-4" src={user?.picture}></img> {/* TODO link this to a profile page */}
+        <div className="profile-info-div">
+          <h1 className="font-medium text-slate-700">User: {user?.nickname}</h1>
+          <img
+            alt="user profile"
+            className="m-auto mr-4 h-10 rounded-full"
+            src={user?.picture}
+          ></img>{' '}
+          {/* TODO link this to a profile page */}
+          <button onClick={handleLogOut}>Log Out</button>
+        </div>
       </div>
-    </div>
     </>
   )
 }

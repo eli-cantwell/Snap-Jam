@@ -1,5 +1,5 @@
-import { User} from '../../models/users.ts'
-import { Project, ProjectData} from '../../models/project.ts'
+import { User } from '../../models/users.ts'
+import { Project, ProjectData } from '../../models/project.ts'
 import db from './connection.ts'
 import {AudioData } from '../../models/Audio.ts'
 
@@ -37,7 +37,7 @@ export async function createProject(project: ProjectData) {
 }
 
 export async function deleteProjectById(id: number): Promise<Project> {
-  return db('project').where({id}).del()
+  return db('project').where({ id }).del()
 }
 // comments
 
@@ -49,6 +49,10 @@ export async function getAllComments() {
 export async function getCommentById(id: number) {
   const comment = await db('comments').where({ id }).first()
   return comment
+}
+
+export async function addComment(comment) {
+  await db('comments').insert(comment)
 }
 
 export async function getCommentsByProject(id: number) {
