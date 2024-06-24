@@ -1,9 +1,9 @@
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { useAuth0 } from "@auth0/auth0-react"
 import request from "superagent"
 import { User } from "../../models/users"
 import { Project, ProjectData } from "../../models/project"
-import { Audio } from "../../models/Audio"
+import { Audio, AudioData } from "../../models/Audio"
 import { useMutation } from "@tanstack/react-query"
 
 const rootURL = '/api/v1'
@@ -125,7 +125,7 @@ const rootURL = '/api/v1'
 
     export function useCreateProject() {
       const {isAuthenticated, getAccessTokenSilently} = useAuth0()
-
+      const queryClient = useQueryClient()
       return useMutation({
         mutationKey: ['createProject'],
         mutationFn: async (obj: ProjectData) => {
@@ -136,6 +136,29 @@ const rootURL = '/api/v1'
           const result = await request.post(`${rootURL}/projects`).set('Authorization', `Bearer ${token}`).send(obj)
 
           return result.body
+        },
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['projects'] })
+        },
+      })
+    }
+
+    function useCreateAudio() {
+      const {isAuthenticated, getAccessTokenSilently} = useAuth0()
+      const queryClient = useQueryClient()
+      return useMutation({
+        mutationKey: ['createAudio'],
+        mutationFn: async (obj: AudioData) => {
+          if (!isAuthenticated) {
+            throw new Error('Authentication error')
+          }
+          const token = await getAccessTokenSilently()
+          const result = await request.post(`${rootURL}/audio`).set('Authorization', `Bearer ${token}`).send(obj)
+
+          return result.body
+        },
+        onSuccess: () => {
+          queryClient.invalidateQueries({queryKey: ['audios', 'projectAudio']})
         }
       })
     }
@@ -208,7 +231,8 @@ const rootURL = '/api/v1'
     export const audio = {
         useGetAllAudio,
         useGetAudioById,
-        useGetAudioByProjectId
+        useGetAudioByProjectId,
+        useCreateAudio
     }
     
     function useGetAllComments() {
