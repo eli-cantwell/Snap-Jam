@@ -15,15 +15,16 @@ export default function Projects() {
   console.log(projects)
   return (
     <>
-      {projects.map((project) => {
-        return (
+      {projects
+        .slice()
+        .reverse()
+        .map((project) => (
           <div key={project.id} className="single-project-div border-b-2">
             <div className="single-project-info-div">
               <SingleProject project={project} />
             </div>
           </div>
-        )
-      })}
+        ))}
     </>
   )
 }
