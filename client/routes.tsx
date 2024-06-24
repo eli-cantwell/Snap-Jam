@@ -10,7 +10,7 @@ import CheckRegistered from './components/CheckRegistered.tsx'
 
 export default createRoutesFromElements(
   <>
-    <Route path="/" element={<CheckRegistered />}>
+    <Route path="/" element={<App />}>
       <Route index element={<Home />} />
       <Route path="/projects" element={<Projects />} />
       <Route path="/create" element={<CreateProject />} />
