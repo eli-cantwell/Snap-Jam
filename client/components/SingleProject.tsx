@@ -69,13 +69,13 @@ export default function SingleProject(props: Props) {
         </div>
 
         <div className="absolute bottom-4 right-4 space-x-2">
-          <button className="w-26 rounded-md bg-slate-100 py-2 font-medium text-slate-700 shadow-md duration-100 ease-in-out hover:scale-105" onClick={handleJam}>
+          <button className="w-32 h-12 rounded-md bg-slate-100 py-2 font-medium text-slate-700 shadow-md duration-100 ease-in-out hover:scale-105 hover:shadow-lg" onClick={handleJam}>
             Jam
             
           </button>
           <button
             onClick={handleComments}
-            className="w-26 rounded-md bg-slate-100 py-2 font-medium text-slate-700 shadow-md duration-100 ease-in-out hover:scale-105"
+            className="w-32 h-12 rounded-md bg-slate-100 py-2 font-medium text-slate-700 shadow-md duration-100 ease-in-out hover:scale-105 hover:shadow-lg"
           >
             Comments
           </button>
