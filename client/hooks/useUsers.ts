@@ -280,29 +280,3 @@ export const comments = {
   useGetAllComments,
   useGetCommentsByProject,
 }
-
-//   function useDeleteResponse() {
-//     const { getAccessTokenSilently } = useAuth0()
-//     const queryClient = useQueryClient()
-
-//     return useMutation({
-//       mutationFn: async (id: number) => {
-//         const token = await getAccessTokenSilently()
-//         const res = await request
-//           .delete(`${rootURL}/${id}`)
-//           .auth(token, { type: 'bearer' })
-
-//         return res.body
-//       },
-//       onSuccess: () => {
-//         queryClient.invalidateQueries({ queryKey: ['responses'] })
-//       },
-//     })
-//   }
-
-//   return {
-//     add: useAddResponse().mutate,
-//     allByUser: useGetAllUserResponses,
-//     del: useDeleteResponse().mutate,
-//   }
-// }
