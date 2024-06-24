@@ -60,7 +60,6 @@ router.get('/getdevprojects/:id', async (req, res) => {
 
 // CREATE
 router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
-  console.log(req.auth?.sub, 'auth0')
     if (!req.auth?.sub) {
         res.sendStatus(StatusCodes.UNAUTHORIZED)
         return

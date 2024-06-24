@@ -1,7 +1,7 @@
 import { User} from '../../models/users.ts'
 import { Project, ProjectData} from '../../models/project.ts'
 import db from './connection.ts'
-import { Audio, AudioData } from '../../models/Audio.ts'
+import {AudioData } from '../../models/Audio.ts'
 
 // Users
 export async function getAllUsers() {

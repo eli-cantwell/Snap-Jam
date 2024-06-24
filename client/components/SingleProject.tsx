@@ -1,6 +1,6 @@
 
 //import { Audio } from "../../models/Audio"
-import { audio, comments } from "../hooks/useUsers"
+import { audio } from "../hooks/useUsers"
 import { Project } from "../../models/project"
 //import { useState } from "react"
 
