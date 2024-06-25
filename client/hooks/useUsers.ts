@@ -68,15 +68,6 @@ export function useGetAddUser() {
   })
 }
 
-//     const { getAccessTokenSilently } = useAuth0()
-//     const queryClient = useQueryClient()
-
-//     return useMutation({
-//       mutationFn: async (id: number) => {
-//         const token = await getAccessTokenSilently()
-//         const res = await request
-//           .delete(`${rootURL}/${id}`)
-//           .auth(token, { type: 'bearer' })
 function useGetUserByAuthId(auth0_id: string) {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0()
 
@@ -372,9 +363,9 @@ export function useDeleteCommentById() {
       return result.body as Comment
     },
     onSuccess: async () => {
-      queryClient.invalidateQueries({ queryKey: ['projectComment', 'comments']})
+      queryClient.invalidateQueries({ queryKey: ['projectComment']})
     }
   })
 }
 
-//Yeah Tas, lego
+//Yeah Tas, lego ▄︻デ══━一💥

@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { comments } from '../hooks/useUsers'
 import { useAuth0 } from '@auth0/auth0-react'
+import { useDeleteCommentById } from '../hooks/useUsers'
 
 interface Comment {
   id: number
@@ -18,6 +19,7 @@ export default function Comments(props: Props) {
   const id = props.id
 
   const { user } = useAuth0()
+  const deleteComment = useDeleteCommentById()
 
   const {
     data: commentsData,
@@ -33,8 +35,14 @@ export default function Comments(props: Props) {
     return <p>There was an error: {`${error}`}</p>
   }
 
-  function handleDelete() {}
+  function handleDelete(obj: Comment) {
+    if ( obj.auth0_id == user?.sub ) {
+    deleteComment.mutateAsync(obj.id)
+    }
+    else {console.log('No allowed')}
+  }
 
+  
   console.log(commentsData)
   console.log(user?.picture)
 
@@ -44,7 +52,7 @@ export default function Comments(props: Props) {
       {/* <pre>{JSON.stringify(commentsData, 0, 2)}</pre> */}
       {commentsData &&
         Array.isArray(commentsData) &&
-        commentsData.map((comment) => (
+        commentsData.map((comment: Comment) => (
           <div key={comment.id} className="single-comment-div">
             <div className="">
               <img
@@ -57,7 +65,7 @@ export default function Comments(props: Props) {
               <p>{comment.created_by + ' | ' + comment.time_created}</p>
               <p className="">{comment.content}</p>
             </div>
-            <button onClick={handleDelete}>Delete</button>
+            <button onClick={() => {handleDelete(comment)}} className='mr-4 mx-auto hover:scale-110'>❌</button>
           </div>
         ))}
     </div>
