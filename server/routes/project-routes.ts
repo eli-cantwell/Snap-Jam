@@ -58,6 +58,15 @@ router.get('/getdevprojects/:id', async (req, res) => {
 
 // UPDATE
 
+router.patch('/updateproject', async (req, res) => {
+  const project = req.body
+  try {
+    await db.updateProjectById(project)
+  } catch (e) {
+    res.json({ message: `${e}` })
+  }
+})
+
 // CREATE
 router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
     if (!req.auth?.sub) {

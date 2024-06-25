@@ -176,6 +176,26 @@ export const user = {
       })
     }
 
+    export function useUpdateProjectById() {
+      const {isAuthenticated, getAccessTokenSilently} = useAuth0()
+      const queryClient = useQueryClient()
+      return useMutation({
+        mutationKey: ['updateProject'],
+        mutationFn: async (obj: ProjectData) => {
+          if (!isAuthenticated) {
+            throw new Error('Authentication error')
+          }
+          const token = await getAccessTokenSilently()
+          const result = await request.patch(`${rootURL}/projects/updateproject`).set('Authorization', `Bearer ${token}`).send(obj)
+
+          return result.body
+        },
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['updateProject'] })
+        },
+      })
+    }
+
     function useCreateAudio() {
       const {isAuthenticated, getAccessTokenSilently} = useAuth0()
       const queryClient = useQueryClient()
@@ -190,8 +210,9 @@ export const user = {
 
           return result.body
         },
-        onSuccess: () => {
-          queryClient.invalidateQueries({queryKey: ['audios', 'projectAudio']})
+        onSuccess: (response) => {
+          console.log(response)
+          queryClient.invalidateQueries({queryKey: ['projectAudio', response.id]})
         }
       })
     }
