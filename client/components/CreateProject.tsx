@@ -71,6 +71,7 @@ export default function CreateProject() {
 
 
     const { body: filepath} = await request.post('/api/v1/upload_audio').send(fd)
+    
     console.log(filepath)
     const newFilePath = filepath.path
 
