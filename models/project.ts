@@ -2,7 +2,7 @@ export interface ProjectData {
   project_name: string,
   description: string,
   owner_id: string
-  contributor_id: []
+  contributor_id: string[]
   tempo: string
   created_by: string
   comments: []

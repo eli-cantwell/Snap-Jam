@@ -39,6 +39,11 @@ export async function createProject(project: ProjectData) {
 export async function deleteProjectById(id: number): Promise<Project> {
   return db('project').where({ id }).del()
 }
+
+export async function updateProjectById(project: Project): Promise<Project> {
+  return db('project').where({'id': project.id }).update(project)
+}
+
 // comments
 
 export async function getAllComments() {
@@ -51,7 +56,7 @@ export async function getCommentById(id: number) {
   return comment
 }
 
-export async function addComment(comment) {
+export async function addComment(comment) { //hopefully that type works?
   await db('comments').insert(comment)
 }
 

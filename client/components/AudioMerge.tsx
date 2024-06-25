@@ -24,9 +24,11 @@ export async function whatever(urls: string[]) {
   })
 
   gain.connect(ctx.destination)
+  const duration = Math.max(...buffers.map(_ => _.duration)) //"don't name your things this" Gerard
+  // const duration = Math.min(...buffers.map(_ => _.duration)) would play to the min song length
 
   const startTime = ctx.currentTime
-  const duration = 60 // a minute //audio file.length?
+  
 
   for (const source of bufferSources) {
     source.start(startTime)

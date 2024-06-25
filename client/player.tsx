@@ -8,6 +8,7 @@ export interface Player {
   pause(): void,
   load(url: string[]): Promise<void>
   play(): void
+  isPlaying(): boolean
 }
 
 async function createAudioSourceNode(
@@ -30,7 +31,7 @@ export function createPlayer ():Player {
 let sources = [] as AudioBufferSourceNode[]
 let ctx: AudioContext
 let gain: GainNode
-let isPlaying = false
+let playState = false
 function init() {
   if(ctx != undefined){
     return
@@ -45,7 +46,7 @@ function pause() { //call this stop?
   for(const source of sources ){
     source.stop(now)
   }
-  isPlaying = false
+  playState = false
 }
 function play() {
   init()
@@ -54,7 +55,7 @@ function play() {
   for(const source of sources ){
     source.start(now)
   }
-isPlaying = true
+playState = true
 }
 async function load (urls: string[]) {
   init()
@@ -71,7 +72,10 @@ async function load (urls: string[]) {
     return node
   })
 }
-return {pause, play, load}
+function isPlaying() {
+  return playState
+}
+ return {pause, play, load, isPlaying}
 }
 
 
