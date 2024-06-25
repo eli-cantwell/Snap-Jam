@@ -145,12 +145,13 @@ export default function CreateProject() {
           <div>
             <label htmlFor="tempo" className="block text-sm font-medium text-slate-700">Tempo</label>
             <input
-              type="text"
+              type="number"
               id="tempo"
               placeholder="Tempo - BPM"
               className="mt-1 p-2 block w-full border border-slate-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
               value={formState.tempo}
               onChange={handleChange}
+              required
             />
           </div>
           <div>

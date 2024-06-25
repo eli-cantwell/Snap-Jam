@@ -88,7 +88,7 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
      try {
       const data: AudioData = req.body
       const response = await db.createAudio(data)
-      res.json({response}).status(StatusCodes.CREATED)
+      res.json({response, id: data.project_id}).status(StatusCodes.CREATED)
 } catch (err) {
     next(err)
   }
