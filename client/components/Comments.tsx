@@ -39,7 +39,7 @@ export default function Comments(props: Props) {
     if ( obj.auth0_id == user?.sub ) {
     deleteComment.mutateAsync(obj.id)
     }
-    else {console.log('No allowed')}
+    else {console.log('No allowed, you dare?!')}
   }
 
   
