@@ -4,11 +4,33 @@ import { createContext, useContext, ReactNode }  from 'react'
 
 const PlayerContext = createContext(createPlayer())
 
+// const PlayerContext = createContext<Player | undefined>(undefined);
+
+// export function usePlayer(): Player {
+//   const player = useContext(PlayerContext);
+//   if (!player) {
+//     throw new Error('usePlayer must be used within a PlayerProvider');
+//   }
+//   return player;
+// }
+
+// export interface PlayerProviderProps {
+//   children: ReactNode;
+//   player: Player;
+// }
+
+// export function PlayerProvider({ children, player }: PlayerProviderProps) {
+//   return <PlayerContext.Provider value={player}>{children}</PlayerContext.Provider>;
+// }
+
 export interface Player {
   pause(): void,
   load(url: string[]): Promise<void>
   play(): void
-  isPlaying(): boolean
+  isPlaying(): boolean;
+  setVolume(volume: number): void; // New method to set volume
+  getVolume(): number; // New method to get current volume
+
 }
 
 async function createAudioSourceNode(
@@ -32,6 +54,7 @@ let sources = [] as AudioBufferSourceNode[]
 let ctx: AudioContext
 let gain: GainNode
 let playState = false
+let currentVolume = 0.5; // Initial volume set to 50%
 function init() {
   if(ctx != undefined){
     return
@@ -39,6 +62,8 @@ function init() {
   ctx = new AudioContext
   gain = ctx.createGain()
   gain.connect(ctx.destination)
+  gain.gain.value = currentVolume; // Set initial volume
+
 }
 function pause() { //call this stop?
   init()
@@ -75,9 +100,29 @@ async function load (urls: string[]) {
 function isPlaying() {
   return playState
 }
- return {pause, play, load, isPlaying}
+
+function setVolume(volume: number) {
+  if (gain) {
+    gain.gain.value = volume;
+    currentVolume = volume;
+  }
 }
 
+function getVolume() {
+  return currentVolume;
+}
+
+
+ return {pause, play, load, isPlaying, setVolume, getVolume}
+}
+
+
+// async function createAudioSourceNode(audioContext: AudioContext, audioUrl: string) {
+//   const response = await fetch(audioUrl);
+//   const arrayBuffer = await response.arrayBuffer();
+//   const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+//   return audioBuffer;
+// }
 
 //Hook
 export function usePlayer ():Player {
