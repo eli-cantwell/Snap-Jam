@@ -6,7 +6,7 @@ import Comments from './Comments'
 import CommentForm from './CommentForm'
 import { useState } from 'react'
 //import { useState } from "react"
-import { whatever } from './AudioMerge'
+// import { whatever } from './AudioMerge'
 import { usePlayer } from '../player'
 import AudioButton from "./AudioButton"
 
@@ -86,11 +86,6 @@ export default function SingleProject(props: Props) {
       </div>
       {commentsBool && (
         <div className="relative mx-auto mt-5 h-auto w-1/2 rounded-lg border border-slate-300 bg-white pb-4 shadow-lg">
-          {/* <div className="flex w-full items-center justify-between rounded-t-lg border-b border-slate-200 bg-gradient-to-r from-blue-200 to-[#5ac0d9] p-4">
-            <p className="text-2xl font-semibold text-slate-800">
-              Comments
-            </p>
-          </div> */}
           <Comments id={props.project.id} />
           <CommentForm for={props.project.id} />
         </div>

@@ -1,7 +1,7 @@
 import SingleProject from './SingleProject'
 import { useGetAllProjects } from '../hooks/useUsers'
-import Comments from './Comments'
-import CommentForm from './CommentForm'
+// import Comments from './Comments'
+// import CommentForm from './CommentForm'
 
 export default function Projects() {
   const { data: projects, isPending, isError, error } = useGetAllProjects()
