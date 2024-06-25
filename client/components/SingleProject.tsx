@@ -25,6 +25,7 @@ export default function SingleProject(props: Props) {
   const [jamBool, setJamBool] = useState(false)
   const [remixBool, setRemixBool] = useState(false)
   const [audioFile, setAudioFile] = useState<File | null>(null)
+  const [playing, setPlaying] = useState(false)
   
 
   //HOOKS
@@ -39,17 +40,14 @@ export default function SingleProject(props: Props) {
     isError: isAudioError,
     error: audioError,
   } = audio.useGetAudioByProjectId(Number(props.project.id))
-<<<<<<< HEAD
-  
-  
-=======
->>>>>>> 10be77f957b4db87f9cdfedcdb80f13c767db850
+
   async function handleJam() {
     if (!audioData) {
       return
     }
     await player.load(audioData.map((data) => `/api/uploads/${data.filepath}`))
     player.play()
+    setPlaying(true)
   }
 
   if (isPendingAudio) {
@@ -149,9 +147,9 @@ export default function SingleProject(props: Props) {
         </div>
 
         <div className="absolute bottom-4 right-4 space-x-2">
-        <button className="w-32 h-12 rounded-md bg-slate-100 py-2 font-medium text-slate-700 shadow-md duration-100 ease-in-out hover:scale-105 hover:shadow-lg" onClick={handleJam}>
+        {!playing ? <button className="w-32 h-12 rounded-md bg-slate-100 py-2 font-medium text-slate-700 shadow-md duration-100 ease-in-out hover:scale-105 hover:shadow-lg" onClick={handleJam}>
             Play
-          </button>
+          </button> : <button className="w-32 h-12 rounded-md bg-slate-100 py-2 font-medium text-slate-700 shadow-md duration-100 ease-in-out hover:scale-105 hover:shadow-lg" onClick={() => {setPlaying(false); player.pause()}}>Stop</button>}
           <button className="w-32 h-12 rounded-md bg-slate-100 py-2 font-medium text-slate-700 shadow-md duration-100 ease-in-out hover:scale-105 hover:shadow-lg" onClick={handleJamClick}>
             Jam
           </button>
