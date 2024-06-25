@@ -56,6 +56,10 @@ export async function getCommentById(id: number) {
   return comment
 }
 
+export async function deleteCommentById(id: number) {
+  return db('comments').where({ id }).del()
+}
+
 export async function addComment(comment) { //hopefully that type works?
   await db('comments').insert(comment)
 }

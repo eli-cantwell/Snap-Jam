@@ -1,6 +1,8 @@
 // import { Link } from 'react-router-dom'
 // import { useGetAllProjects } from '../hooks/useUsers'
 
+import { Link } from "react-router-dom";
+
 export default function Home() {
   return (
     <div className="bg-white text-gray-800">
@@ -66,6 +68,60 @@ export default function Home() {
             learning, and growth. Join our vibrant community today and be a part
             of something amazing!{' '}
           </p>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section id="testimonials" className="container mx-auto px-4 py-16">
+        <h2 className="mb-12 text-center text-3xl font-semibold">Testimonials</h2>
+        <div className="grid gap-8 md:grid-cols-2">
+          <div className="rounded-lg border border-slate-300 bg-white p-6 shadow-lg">
+            <p className="italic">"SnapJam has completely changed the way I create music. The collaboration tools are top-notch!"</p>
+            <p className="mt-4 text-right font-semibold">- Alex, Music Producer</p>
+          </div>
+          <div className="rounded-lg border border-slate-300 bg-white p-6 shadow-lg">
+            <p className="italic">"The community aspect of SnapJam is incredible. I've learned so much from other users."</p>
+            <p className="mt-4 text-right font-semibold">- Jamie, Audio Engineer</p>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section id="cta" className="bg-gradient-to-br from-blue-200 to-[#5ac0d9] py-16 text-center">
+        <div className="container mx-auto">
+          <h2 className="mb-6 text-3xl font-semibold">Ready to join SnapJam?</h2>
+          <p className="mb-8 text-lg">Click here to start collaborating with musicians from all over the world.</p>
+          <Link
+            to="/create"
+            className="rounded-md bg-white px-4 py-2 font-medium text-slate-700 shadow-md duration-100 ease-in-out hover:scale-105"
+          >
+            Get Started
+          </Link>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section id="faq" className="container mx-auto px-4 py-16">
+        <h2 className="mb-12 text-center text-3xl font-semibold">Frequently Asked Questions</h2>
+        <div className="space-y-6">
+          <div className="rounded-lg border border-slate-300 bg-white p-6 shadow-lg">
+            <h3 className="mb-2 text-xl font-semibold">How does SnapJam work?</h3>
+            <p>
+              SnapJam allows users to upload their audio files, set the tempo, and collaborate with other users to create and finish projects.
+            </p>
+          </div>
+          <div className="rounded-lg border border-slate-300 bg-white p-6 shadow-lg">
+            <h3 className="mb-2 text-xl font-semibold">Is SnapJam free to use?</h3>
+            <p>
+              Yes, SnapJam offers a free tier with access to basic features. We also offer premium plans for advanced features.
+            </p>
+          </div>
+          <div className="rounded-lg border border-slate-300 bg-white p-6 shadow-lg">
+            <h3 className="mb-2 text-xl font-semibold">Can I collaborate with anyone on SnapJam?</h3>
+            <p>
+              Absolutely! SnapJam is designed to make collaboration easy, whether you&aposre working with friends or connecting with new musicians.
+            </p>
+          </div>
         </div>
       </section>
 
