@@ -82,22 +82,17 @@ router.post('/addcomment', async (req, res) => {
 })
 
 // DELETE
-router.delete('/:id', checkJwtasync (req, res)) => {
-  try {
-
+router.delete('/:id', checkJwt, async (req: JwtRequest, res, next) => {
+  if (!req.auth?.sub) {
+    res.sendStatus(StatusCodes.UNAUTHORIZED)
+    return
   }
-}
+  try {
+    const id = Number(req.params.id)
+    await db.deleteCommentById(id)
+    res.sendStatus(StatusCodes.CREATED)
+  } catch (err) {
+  next(err)
+  }
+})
 
-// router.delete('/:id', checkJwt, async (req: JwtRequest, res, next) => {
-//   if (!req.auth?.sub) {
-//       res.sendStatus(StatusCodes.UNAUTHORIZED)
-//       return
-//   }
-//    try {
-//     const id = Number(req.params.id)
-//     await db.deleteProjectById(id)
-//     res.sendStatus(StatusCodes.CREATED)
-// } catch (err) {
-//   next(err)
-// }
-// })

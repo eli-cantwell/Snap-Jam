@@ -129,6 +129,9 @@ export default function CreateProject() {
     return (
       <div>
         <div className="bg-gradient-to-br from-blue-200 to-[#5ac0d9] border border-slate-300 w-1/2 rounded-lg mx-auto mt-5 p-6 shadow-lg">
+      <h2 className="text-2xl font-bold text-center mb-6 text-slate-700">
+      Create a New Project
+    </h2>
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="title" className="block text-sm font-medium text-slate-700">Title</label>
@@ -177,11 +180,12 @@ export default function CreateProject() {
           />
         </div>
           <div className="text-right">
-          <button type="submit" className="w-24 bg-white text-slate-700 font-medium py-2 rounded-md hover:scale-105 shadow-md ease-in-out duration-100">Submit</button>
+          <button type="submit" className="w-24 bg-blue-500 text-white font-medium py-2 rounded-md hover:scale-105 shadow-md ease-in-out duration-100">Submit</button>
         </div>
         </form>
       </div>
       <ToastContainer />
       </div>
+     
     )
 }

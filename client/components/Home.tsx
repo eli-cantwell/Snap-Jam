@@ -76,11 +76,11 @@ export default function Home() {
         <h2 className="mb-12 text-center text-3xl font-semibold">Testimonials</h2>
         <div className="grid gap-8 md:grid-cols-2">
           <div className="rounded-lg border border-slate-300 bg-white p-6 shadow-lg">
-            <p className="italic">"SnapJam has completely changed the way I create music. The collaboration tools are top-notch!"</p>
+            <p className="italic">SnapJam has completely changed the way I create music. The collaboration tools are top-notch!</p>
             <p className="mt-4 text-right font-semibold">- Alex, Music Producer</p>
           </div>
           <div className="rounded-lg border border-slate-300 bg-white p-6 shadow-lg">
-            <p className="italic">"The community aspect of SnapJam is incredible. I've learned so much from other users."</p>
+            <p className="italic">The community aspect of SnapJam is incredible. I&apos;ve learned so much from other users.</p>
             <p className="mt-4 text-right font-semibold">- Jamie, Audio Engineer</p>
           </div>
         </div>
@@ -119,7 +119,7 @@ export default function Home() {
           <div className="rounded-lg border border-slate-300 bg-white p-6 shadow-lg">
             <h3 className="mb-2 text-xl font-semibold">Can I collaborate with anyone on SnapJam?</h3>
             <p>
-              Absolutely! SnapJam is designed to make collaboration easy, whether you&aposre working with friends or connecting with new musicians.
+              Absolutely! SnapJam is designed to make collaboration easy, whether you&apos;re working with friends or connecting with new musicians.
             </p>
           </div>
         </div>

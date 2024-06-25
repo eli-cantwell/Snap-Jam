@@ -1,11 +1,12 @@
 
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { QueryClient, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useAuth0 } from '@auth0/auth0-react'
 import request from 'superagent'
 import { User, UserData } from '../../models/users'
 import { Project, ProjectData } from '../../models/project'
 import { Audio, AudioData } from '../../models/Audio'
 import { useMutation } from '@tanstack/react-query'
+import { query } from 'express'
 
 const rootURL = '/api/v1'
 
@@ -353,28 +354,27 @@ export function useGetAddComment(id: number) {
   })
 }
 
-//   function useDeleteResponse() {
-//     const { getAccessTokenSilently } = useAuth0()
-//     const queryClient = useQueryClient()
 
-//     return useMutation({
-//       mutationFn: async (id: number) => {
-//         const token = await getAccessTokenSilently()
-//         const res = await request
-//           .delete(`${rootURL}/${id}`)
-//           .auth(token, { type: 'bearer' })
+export function useDeleteCommentById() {
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0()
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationKey: ['deleteComment'],
+    mutationFn: async (id: number) => {
+      if (!isAuthenticated) {
+        throw new Error("Authentication error")
+      }
+      const token = await getAccessTokenSilently()
+      const result = await request
+      .delete(`${rootURL}/comments/${id}`)
+      .auth(token, {type: 'bearer'})
+      
+      return result.body as Comment
+    },
+    onSuccess: async () => {
+      queryClient.invalidateQueries({ queryKey: ['projectComment', 'comments']})
+    }
+  })
+}
 
-//         return res.body
-//       },
-//       onSuccess: () => {
-//         queryClient.invalidateQueries({ queryKey: ['responses'] })
-//       },
-//     })
-//   }
-
-//   return {
-//     add: useAddResponse().mutate,
-//     allByUser: useGetAllUserResponses,
-//     del: useDeleteResponse().mutate,
-//   }
-// }
+//Yeah Tas, lego

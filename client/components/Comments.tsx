@@ -33,6 +33,8 @@ export default function Comments(props: Props) {
     return <p>There was an error: {`${error}`}</p>
   }
 
+  function handleDelete() {}
+
   console.log(commentsData)
   console.log(user?.picture)
 
@@ -55,6 +57,7 @@ export default function Comments(props: Props) {
               <p>{comment.created_by + ' | ' + comment.time_created}</p>
               <p className="">{comment.content}</p>
             </div>
+            <button onClick={handleDelete}>Delete</button>
           </div>
         ))}
     </div>
