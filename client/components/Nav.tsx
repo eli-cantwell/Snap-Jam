@@ -23,9 +23,7 @@ export default function Nav() {
     <>
       <div className="relative h-full w-full">
         <div className='w-fill h-48 border-b-2 border-slate-300 bg-[url("/images/banner-1563536_1920.jpg")] bg-cover'></div>
-        <h1 className="absolute bottom-0 left-1/4 h-full w-1/2 px-4 py-10  text-center text-8xl font-semibold text-white">
-          SnapJam
-        </h1>
+        <img src="../../images/snapjam.webp" alt="SnapJam" className="absolute bottom-0 left-1/4 h-full w-1/2 px-4 py-10 text-center" />
       </div>
       <div className="nav-bar">
         <div className="nav-title-div">

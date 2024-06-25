@@ -14,6 +14,7 @@ import { ChangeEvent } from 'react'
 
 
 
+
 interface Props {
   project: Project
 }
@@ -25,7 +26,8 @@ export default function SingleProject(props: Props) {
   const [remixBool, setRemixBool] = useState(false)
   const [audioFile, setAudioFile] = useState<File | null>(null)
   const [playing, setPlaying] = useState(false)
-  
+  const [volume, setVolume] = useState(0.5); // State to store volume
+
 
   //HOOKS
   const player = usePlayer()
@@ -65,6 +67,13 @@ export default function SingleProject(props: Props) {
   function handleJamClick() {
     setJamBool(!jamBool)
   }
+   
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newVolume = parseFloat(e.target.value);
+    setVolume(newVolume);
+    player.setVolume(newVolume); // Update player volume
+  };
+
 
   const handleFileChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const file = evt.target.files?.[0];
@@ -158,6 +167,15 @@ export default function SingleProject(props: Props) {
           >
             Comments
           </button>
+          <input
+        type="range"
+        min="0"
+        max="1"
+        step="0.01"
+        value={volume}
+        onChange={handleVolumeChange}
+      />
+
         </div>
       </div>
       {commentsBool && (
@@ -177,7 +195,16 @@ export default function SingleProject(props: Props) {
             //      className='w-24 h-12 rounded-md shadow-md hover:scale-105 bg-slate-100'>play</button> : <button className='w-24 h-12 rounded-md shadow-md hover:scale-105 bg-slate-100' onClick={() => {player.pause(); setPlayToggle(false)}}>Stop</button>}
             
             // </div>
-            <div key={aud.id}><AudioButton audio={aud}/></div>
+            <div key={aud.id}><AudioButton audio={aud}/>
+            {/* <input
+        type="range"
+        min="0"
+        max="1"
+        step="0.01"
+        value={volume}
+        onChange={handleVolumeChange}
+      /> */}
+      </div>
             
           ))}
         <button className='w-32 h-12 bg-[#5ac0d9] mt-8 rounded-md shadow-md hover:bg-slate-300 ease-linear duration-[100ms]'

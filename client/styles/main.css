@@ -510,6 +510,7 @@ height: 50%; */
   -ms-animation: fadein 0.5s;
   animation: fadein 0.5s;
 }
+
 @keyframes fadein {
   from {
     opacity: 0;
