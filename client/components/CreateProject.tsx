@@ -8,9 +8,7 @@ import { ProjectData } from "../../models/project"
 import { AudioData } from "../../models/Audio"
 import { ToastContainer, toast } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
-// import { user } from "../hooks/useUsers"
-//import { ProjectData } from "../../models/project"
-//import { AudioData } from "../../models/Audio"
+
 
 
 export default function CreateProject() {
@@ -21,8 +19,6 @@ export default function CreateProject() {
 
   const notify = () => toast("Project created succesfully")
 
-
-  // const {data, isPending, isError, error} = user.useGetUserByAuthId(userData?.sub)
 
   const [formState, setFormState] = useState({
     project_name: '',

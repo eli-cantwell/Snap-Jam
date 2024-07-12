@@ -9,9 +9,14 @@ export default function Login() {
   return (
     <>
       <main className="login-main">
+        <h1 className="mb-6 text-5xl font-bold">Welcome to Snap Jam!</h1>
         <div className="login-screen m-auto">
-          <button className='button-black' onClick={handleLogin}>Sign up</button>
-          <button className='button-black' onClick={handleLogin}>Sign in</button>
+          <button className="button-black" onClick={handleLogin}>
+            Sign up
+          </button>
+          <button className="button-black" onClick={handleLogin}>
+            Sign in
+          </button>
         </div>
       </main>
     </>

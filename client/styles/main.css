@@ -2,28 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-/* .stretch {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-} */
 .nav-bar {
   display: flex;
   justify-content: space-between;
   width: 100%;
   background: #5ac0d9;
-  border-bottom: 1px solid #e0e0e0;
 }
-
-/* .comment-div {
-  width: 50%;
-  margin: auto;
-  background-color: #5ac0d9;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  border-radius: 10px;
-  margin-top: 20px;
-} */
 
 .single-project-div {
   padding-top: 30px;
@@ -147,8 +131,7 @@ a:hover {
   align-items: center;
   height: 10em;
   width: 25em;
-  margin-top: 15%;
-  background-color: white;
+  background-color: rgb(210, 245, 248);
   border-radius: 20px;
 
   /* width: 50%;
@@ -205,7 +188,8 @@ height: 50%; */
 }
 
 .login-main {
-  background-image: url('../images/what-a-home-page.png');
+  text-align: center;
+  margin-top: 200px;
 }
 
 /* Audio player stuff */
